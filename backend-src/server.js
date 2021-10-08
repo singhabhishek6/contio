@@ -14,6 +14,9 @@ const Pusher = require("pusher")
 const userController = require('./controllers/user.controller');
 app.use('/users', userController);
 
+const reviewController = require('./controllers/review.controller');
+app.use('/reviews', reviewController);
+
 const pusher = new Pusher({
   appId: "1279185",
   key: "8c79b67adca098eeafac",
