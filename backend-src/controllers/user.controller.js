@@ -5,9 +5,11 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        let page = +req.params.page || 1;
-        let per_page = +req.params.limit || 10;
+        let page = +req.query.page || 1;
+        let per_page = +req.query.limit || 10;
         let offset = (page - 1) * per_page;
+
+        // console.log(page, per_page);
 
         let proficiencyQuery = req.body.proficiency;
         let users;
