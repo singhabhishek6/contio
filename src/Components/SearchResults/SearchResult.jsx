@@ -29,7 +29,7 @@ export const SearchResult = () => {
             <div className="img-container">
               <div className="img-inner">
                 <div className="inner-skew">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNjhBaCE6_IlqbjxTdth5Hm0mccqejntA2XA&usqp=CAU" />
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNjhBaCE6_IlqbjxTdth5Hm0mccqejntA2XA&usqp=CAU" alt="User" />
                 </div>
               </div>
             </div>

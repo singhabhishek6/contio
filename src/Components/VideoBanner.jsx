@@ -3,7 +3,6 @@ import styled from "styled-components";
 import one from "../img/1.gif";
 import two from "../img/2.gif";
 import three from "../img/3.gif";
-import { SearchResult } from "./SearchResults/SearchResult";
 
 export const VideoBanner = () => {
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { Navbar } from "../Components/Navbar";
 import { Mentor } from "../Components/SearchResults/Mentor";
 import { SearchResult } from "../Components/SearchResults/SearchResult";
 import { LandingPage } from "../pages/LandingPage";
@@ -11,6 +12,7 @@ export const Routes = () => {
         <LandingPage />
       </Route>
       <Route exact path="/search/:data">
+        <Navbar />
         <SearchResult />
       </Route>
       <Route exact path="/search/:data/:id">

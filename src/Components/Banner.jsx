@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import { Link } from "react-router-dom";
 
 export const Banner = () => {
+  const sub = [
+    "html",
+    "css",
+    "js",
+    "react",
+    "react-dom",
+    "redux",
+    "material-ui",
+    "nodejs",
+  ];
+  const [subject, setSubject] = useState("");
+  const [debounce, setDebounce] = useState(false);
+
+  const handleBlur = () => {
+    console.log("Hello");
+    setTimeout(() => {
+      setDebounce(false);
+    }, 500);
+  };
+
   return (
     <Div>
       <div className="left">
@@ -17,8 +38,41 @@ export const Banner = () => {
         </p>
         <div className="mentorSearch">
           <MenuBookOutlinedIcon />
-          <input type="text" name="" id="" placeholder="What do you want to learn?" />
-          <div>Find Mentor</div>
+          <input
+            onFocus={() => setDebounce(true)}
+            onBlur={handleBlur}
+            type="text"
+            name=""
+            id=""
+            placeholder="What do you want to learn?"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+          <Link style={{ textDecoration: "none" }} to={subject.length ? `/search/${subject}`: "/"}>
+            <div style={{ cursor: subject.length ? "pointer" : "not-allowed" }}>
+              Find Mentor
+            </div>
+          </Link>
+        </div>
+        <div
+          style={{ display: debounce ? "block" : "none" }}
+          className="debounce"
+        >
+          {sub
+            .filter(
+              (s) => s.toLowerCase().indexOf(subject.toLowerCase()) !== -1
+            )
+            .map((e, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="debounce_res"
+                  onClick={() => setSubject(e.toUpperCase())}
+                >
+                  {e}
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="right">
@@ -41,6 +95,7 @@ const Div = styled.div`
     width: 55%;
     padding-left: 150px;
     padding-right: 20px;
+    position: relative;
     h1 {
       margin: 4px 0;
       font-size: 40px;
@@ -53,7 +108,7 @@ const Div = styled.div`
         color: dodgerblue;
       }
     }
-    .mentorSearch{
+    .mentorSearch {
       display: flex;
       align-items: center;
       background-color: #fff;
@@ -61,10 +116,10 @@ const Div = styled.div`
       width: 400px;
       border-radius: 30px;
       margin-top: 40px;
-      svg{
+      svg {
         color: #21d6c4;
       }
-      input{
+      input {
         background-color: transparent;
         border: none;
         outline: none;
@@ -72,7 +127,7 @@ const Div = styled.div`
         margin: 0 10px;
         font-size: 15px;
       }
-      div{
+      div {
         background-color: #21d6c4;
         padding: 7px;
         margin: -5px;
@@ -83,10 +138,29 @@ const Div = styled.div`
         font-weight: 600;
         cursor: pointer;
         transition: 300ms ease-in-out;
-        &:hover{
+        &:hover {
           background-color: dodgerblue;
           transition: 300ms ease-in-out;
         }
+      }
+    }
+    .debounce {
+      width: 200px;
+      height: auto;
+      max-height: 250px;
+      background-color: #fff;
+      position: absolute;
+      margin-top: 20px;
+      margin-left: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      .debounce_res {
+        margin: 10px;
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 18px;
+        cursor: pointer;
       }
     }
   }
