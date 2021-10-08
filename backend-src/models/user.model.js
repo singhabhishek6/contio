@@ -10,7 +10,9 @@ const userSchema = new mongoose.Schema({
     about: { type: String, required: false },
     proficiency: [{ type: String, required: false }],
     isOnline: { type: Boolean, required: false, default: false },
-    password: { type: String, required: false }
+    password: { type: String, required: false },
+    teacher_review: { type: Number, required: false, default: 2 },
+    student_review: { type: Number, required: false, default: 2 },
 }, {
     versionKey: false,
     timestamps: true
