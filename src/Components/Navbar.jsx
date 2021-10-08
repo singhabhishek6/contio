@@ -8,6 +8,7 @@ export const Navbar = () => {
       <img src={logo} alt="" />
       <div className="navbtns">
         <p>Become a Mentor</p>
+        <p>Messages</p>
         <p>Sign Up</p>
         <p>Log In</p>
       </div>
@@ -34,9 +35,14 @@ const Nav = styled.nav`
   .navbtns {
     display: flex;
     p {
-      margin: 0 25px;
+      margin: 0 15px;
       font-weight: 600;
       cursor: pointer;
+      transition: 500ms;
+      &:hover{
+        transform: translateY(-6px);
+        transition: 200ms;
+      }
     }
   }
 `;
