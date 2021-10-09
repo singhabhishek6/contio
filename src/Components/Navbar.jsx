@@ -2,27 +2,105 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../img/logo.png";
+import TextField from "@mui/material/TextField";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import GoogleIcon from "@mui/icons-material/Google";
+import CloseIcon from "@mui/icons-material/Close";
+import MailIcon from "@mui/icons-material/Mail";
 
 export const Navbar = () => {
-  const [login, setLogin] = useState(true)
-  const [signup, setSignup] = useState(false)
+  const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
   return (
     <Nav>
-      <Link to="/"><img src={logo} alt="logo" /></Link>
+      <Link to="/">
+        <img src={logo} alt="logo" />
+      </Link>
       <div className="navbtns">
         <p>Become a Mentor</p>
         <p>Messages</p>
-        <p>Sign Up</p>
-        <p>Log In</p>
+        <p onClick={() => setSignup(true)}>Sign Up</p>
+        <p onClick={() => setLogin(true)}>Log In</p>
       </div>
-      {login && <div className="login">
+      {login && (
+        <div className="login">
           <div className="login_overlay">
+            <div onClick={() => setLogin(false)} className="close">
+              <CloseIcon />
+            </div>
             <h2>Log In</h2>
-            <input type="email" name="email" id="email" placeholder="E-mail address" />
-            <input type="password" name="pass" id="pass" placeholder="Password" />
-            <div>Login</div>
+            <TextField
+              className="inputs"
+              id="filled-basic"
+              label="E-mail address"
+              variant="filled"
+            />
+            <TextField
+              className="inputs"
+              id="filled-basic"
+              label="Password"
+              variant="filled"
+            />
+            <div className="loginbtn">Login</div>
+            <div className="fbgooglebtn">
+              <div className="fb">
+                <FacebookRoundedIcon />
+                <div>Facebook</div>
+              </div>
+              <div className="google">
+                <GoogleIcon />
+                <div>Google</div>
+              </div>
+            </div>
+            <h4>Don't have an account?</h4>
+            <h4
+              className="signup"
+              onClick={() => {
+                setLogin(false);
+                setSignup(true);
+              }}
+            >
+              Sign Up
+            </h4>
+            <h4>Forgot Password</h4>
           </div>
-        </div>}
+        </div>
+      )}
+
+      {signup && (
+        <div className="login">
+          <div className="signup_overlay">
+            <div onClick={() => setSignup(false)} className="close">
+              <CloseIcon />
+            </div>
+            <h2>Sign Up</h2>
+            <div className="fbgooglebtn">
+              <div className="fb">
+                <FacebookRoundedIcon />
+                <div>Register with Facebook</div>
+              </div>
+              <div className="google">
+                <GoogleIcon />
+                <div>Sign up with Google</div>
+              </div>
+              <div className="email">
+                <MailIcon />
+                <div>Registration by e-mail</div>
+              </div>
+            </div>
+            <h4>
+              You already have an account? <span onClick={() => {
+                setSignup(false);
+                setLogin(true);
+              }}>Log in</span>
+            </h4>
+            <h4 className="tnc">
+              On registering by email or Facebook, you accept our <span>legal terms &
+              conditions.</span>
+            </h4>
+          </div>
+        </div>
+      )}
     </Nav>
   );
 };
@@ -34,11 +112,7 @@ const Nav = styled.nav`
   padding: 20px;
   box-shadow: 0px 4px 10px gray;
   background: rgb(189, 232, 222);
-  background: linear-gradient(
-    90deg,
-    #97f8e2 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background: linear-gradient(90deg, #97f8e2 0%, rgba(255, 255, 255, 1) 100%);
   img {
     width: 50px;
     cursor: pointer;
@@ -50,23 +124,23 @@ const Nav = styled.nav`
       font-weight: 600;
       cursor: pointer;
       transition: 500ms;
-      &:hover{
+      &:hover {
         transform: translateY(-6px);
         transition: 200ms;
       }
     }
   }
-  .login{
-    width: 99vw;
+  .login {
+    width: 98.7vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     left: 0;
     top: 0;
     z-index: 10;
-    .login_overlay{
-      width: 450px;
-      height: 520px;
+    .signup_overlay {
+      width: 520px;
+      height: 450px;
       background-color: white;
       position: absolute;
       top: 50%;
@@ -77,6 +151,146 @@ const Nav = styled.nav`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+      .fbgooglebtn {
+        .fb,
+        .google,
+        .email {
+          background-color: #fa6484;
+          width: 320px;
+          text-align: center;
+          padding: 18px 0;
+          margin-top: 10px;
+          border-radius: 5px;
+          color: #fff;
+          font-weight: 600;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            font-size: 20px;
+            margin-right: 10px;
+          }
+        }
+        .fb {
+          background-color: #3b5998;
+        }
+        .google {
+          background-color: #5d99fb;
+        }
+      }
+      h4 {
+        color: #333;
+        margin: 0;
+        margin-top: 25px;
+        span {
+          color: #fa6484;
+          cursor: pointer;
+        }
+      }
+      .tnc {
+        padding: 0 80px;
+        font-size: 14px;
+        color: #999;
+        font-weight: 500;
+        text-align: center;
+        span{
+          color: #555;
+          text-decoration: underline;
+        }
+      }
+    }
+    .login_overlay {
+      width: 480px;
+      height: 560px;
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+      .inputs {
+        margin: 5px;
+        width: 320px;
+        div::before {
+          border-bottom: 0px;
+          &:focus {
+            border-bottom: 0px;
+          }
+        }
+      }
+      .loginbtn {
+        background-color: #fa6484;
+        width: 320px;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: 5px;
+        border-radius: 5px;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .fbgooglebtn {
+        display: flex;
+        color: #fff;
+        font-weight: 600;
+        width: 320px;
+        gap: 10px;
+        margin-top: 10px;
+        .fb {
+          background-color: #3b5998;
+          width: 50%;
+          padding: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          cursor: pointer;
+          gap: 5px;
+          svg {
+            font-size: 20px;
+          }
+        }
+        .google {
+          background-color: #5d99fb;
+          width: 50%;
+          padding: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          cursor: pointer;
+          gap: 5px;
+          svg {
+            font-size: 20px;
+          }
+        }
+      }
+      h4 {
+        margin: 0;
+        margin-top: 30px;
+      }
+      .signup {
+        margin: 0;
+        color: #fa6484;
+        cursor: pointer;
+      }
     }
   }
 `;
