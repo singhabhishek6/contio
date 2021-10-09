@@ -196,6 +196,10 @@ const Nav = styled.nav`
       font-weight: 600;
       cursor: pointer;
       transition: 500ms;
+      @media screen and (max-width: 600px) {
+        margin: 0 5px;
+        font-size: 80%;
+      }
       &:hover {
         transform: translateY(-2px);
         transition: 200ms;
@@ -253,6 +257,9 @@ const Nav = styled.nav`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 600px) {
+        width: 90%;
+      }
       .close {
         position: absolute;
         top: 20px;
@@ -321,6 +328,9 @@ const Nav = styled.nav`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 600px) {
+        width: 90%;
+      }
       .close {
         position: absolute;
         top: 20px;

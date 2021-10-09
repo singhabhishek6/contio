@@ -96,6 +96,7 @@ const Div = styled.div`
   background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   @media screen and (max-width: 1000px) {
     flex-direction: column-reverse;
+    min-height:0;
   }
   .left {
     width: 55%;
@@ -103,7 +104,8 @@ const Div = styled.div`
     padding-right: 20px;
     position: relative;
     @media screen and (max-width: 1000px) {
-        padding-left:10px;
+        padding:0px;
+        width: 80%;
       }
     h1 {
       margin: 4px 0;
@@ -139,6 +141,9 @@ const Div = styled.div`
         width: 100%;
         margin: 0 10px;
         font-size: 15px;
+        @media screen and (max-width: 1000px) {
+        text-align: center;
+      }
       }
       div {
         background-color: #21d6c4;
@@ -157,6 +162,9 @@ const Div = styled.div`
         }
         @media screen and (max-width: 1000px) {
         margin-top: 20px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
       }
       }
     }
@@ -183,6 +191,9 @@ const Div = styled.div`
   .right {
     width: 45%;
     padding: 25px;
+    @media screen and (max-width: 1000px) {
+        /* margin-top: -100px; */
+      }
     img {
       width: 100%;
     }
