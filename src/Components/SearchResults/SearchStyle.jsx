@@ -10,6 +10,7 @@ export const SearchStyle = styled.div`
   width: 80%;
   padding: 0 135px;
   padding-top: 50px;
+  padding-bottom: 20px;
   min-height: 100vh;
 .wrapper{
 
@@ -66,7 +67,7 @@ export const SearchStyle = styled.div`
   }
 
   .text-container {
-    height: 120px;
+    height: 160px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     padding: 120px 20px 20px 20px;
     border-radius: 20px;
@@ -84,7 +85,9 @@ export const SearchStyle = styled.div`
   .status{
       width: 100px;
       text-align: left;
-      margin-left: 20px;
+      margin-top: 10px;
+      
+      /* margin-left: 20px; */
 
       .dot{
         display: inline-block;
@@ -95,4 +98,30 @@ export const SearchStyle = styled.div`
         margin-right: 5px;
       }
   }
+  .sdf{
+              width: 100%;
+              margin-right: 15px;
+              display: flex;
+              flex-wrap: wrap;
+          
+          span{
+              color: white;
+              margin-top: 10px;
+              padding: 4px 6px;
+              background-color: rgba(0, 0, 0, .7);
+              border-radius: 5px;
+              margin-right: 5px;
+          }
+        }
+        .MuiPagination-root{
+          width: 100%;
+          margin: auto;
+          margin-top:30px ;
+          text-align: center;
+          ul{
+            justify-content: center;
+            /* width: 20%; */
+            margin: auto;
+          }
+        }
 `

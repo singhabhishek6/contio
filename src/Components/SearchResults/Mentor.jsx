@@ -49,9 +49,33 @@ export const Mentor = () => {
             <div className="name">
               <h2>{user.name}</h2>
             <Rating name="read-only" value={user.teacher_review != undefined ?user.teacher_review:1} readOnly />
-              
+            {user.isOnline?<div className="status">
+                <span style={{backgroundColor:"green"}} className="dot"></span>
+                <span>Online</span>
+              </div>:<div className="status">
+                <span style={{backgroundColor:"red"}} className="dot"></span>
+                <span>Offline</span>
+              </div>}
             </div>
             <div className="chat">Chat</div>
+          </div>
+        </div>
+        <div className="bio">
+          <div className="left">
+            <h3>Proficiency in</h3>
+           <div>
+           {
+              user.proficiency!=undefined ? user.proficiency.map(r=>{
+                return <span>{r}</span>
+              }):null
+            }
+           </div>
+          </div>
+          <div className="right">
+            <h3>Bio</h3>
+            <p>{user.bio}</p>
+            <h3>About</h3>
+            <p>{user.about}</p>
           </div>
         </div>
         <div className="review">
@@ -84,7 +108,7 @@ export const Mentor = () => {
           </ul>
         </div>
         
-    
+        <h3 className="h">Similar Tech Mentors</h3>
           <MyCarousel users={users}/>
         
       </div>
