@@ -6,13 +6,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         let page = +req.query.page || 1;
-        let per_page = +req.query.limit || 10;
+        let per_page = +req.query.limit || 9;
         let offset = (page - 1) * per_page;
 
-        // console.log(page, per_page);
-
-        let proficiencyQuery = req.body.proficiency;
-        console.log(req.body);
+        console.log(req.query.data);
+        let proficiencyQuery = [];
+        proficiencyQuery.push(req.query.data.toLowerCase());
         let users;
         let totalUsers = 0;
         if (proficiencyQuery) {
@@ -35,7 +34,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        // console.log(req.body);
         const user = await User.create(req.body);
 
         return res.status(201).json({ user })
