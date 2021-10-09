@@ -1,12 +1,8 @@
 import "./App.css"
-import Chatbot from "./Chatbot/Chatbot"
+import { Routes } from "./Routes/Routes"
 
 function App() {
-  return (
-    <div className="App">
-      <Chatbot />
-    </div>
-  )
+  return <Routes />
 }
 
 export default App
