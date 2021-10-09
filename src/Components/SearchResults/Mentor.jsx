@@ -20,7 +20,7 @@ export const Mentor = () => {
         console.log(res);
         setuser(res.data.user)
     })
-    axios("http://localhost:1234/users")
+    axios("http://localhost:1234/users?data=css")
     .then(res=>{
         console.log(res);
         setusers(res.data.users)
