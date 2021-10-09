@@ -8,7 +8,7 @@ export const MyCarousel = ({users}) => {
     <div className="CONTAINER_STYLE">
       <ReactCardCarousel
         spread={"wide"}
-        //   autoplay={true}
+          autoplay={true}
         autoplay_speed={3000}
       >
         {users.map(el=>{
@@ -21,6 +21,13 @@ export const MyCarousel = ({users}) => {
           <div className="asd">
             <h3> {el.name}</h3>
             <Rating name="read-only" value={el.teacher_review} readOnly />
+            <div className="sdf"> 
+           {
+             el.proficiency.map(r=>{
+                return <span>{r}</span>
+              })
+            }
+           </div>
           </div>
         </div>
           )
