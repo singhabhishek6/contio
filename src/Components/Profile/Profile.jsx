@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -12,6 +13,7 @@ import { useEffect } from 'react';
 import styles from './profile.module.css';
 import Typography from '@mui/material/Typography';
 import ProficienciesInputBox from './ProficiencySelection';
+import { Alert, Snackbar } from "@mui/material";
 
 
 const theme = createTheme();
@@ -29,6 +31,17 @@ export default function Profile() {
 
     const [selected, setSelected] = React.useState([]);
     const profilePicRef = React.useRef(null);
+    const [errModel, setErrModel] = useState(false);
+    const [errMessege, setErrMessage] = useState("");
+    const [alertType, setAlertType] = useState("success");
+
+    const state1 = {
+        vertical: "top",
+        horizontal: "right",
+    }
+    const { vertical, horizontal } = state1;
+
+
 
     useEffect(() => {
         if (id === undefined) {
@@ -59,11 +72,13 @@ export default function Profile() {
     }, [id])
 
     const handlePatchStudent = () => {
-        axios.patch(`http://localhost:1234/students/${id}`, payload)
+        axios.patch(`http://localhost:1234/users/${id}`, payload)
             .then((res) => {
-                history.push('/students/');
+                handleAlert("Updated");
+                history.push(`/profile/${id}`);
             })
             .catch((err) => {
+                setAlertType("error");
                 console.log(err);
             })
     }
@@ -75,13 +90,21 @@ export default function Profile() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(payload);
-        // handlePatchStudent();
+        handlePatchStudent();
     };
 
     const handleFileSelection = () => {
         profilePicRef.current.click();
     }
+
+    const handleAlert = (message) => {
+        setErrMessage(message);
+        setErrModel(true);
+        setTimeout(() => {
+            setErrModel(false);
+            setAlertType("success");
+        }, 2000);
+    };
 
     return (
         <div className={styles.profileContainer}>
@@ -108,6 +131,9 @@ export default function Profile() {
                                         name="name"
                                         required
                                         fullWidth
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
                                         id="Name"
                                         label="Name"
                                         type="text"
@@ -270,6 +296,19 @@ export default function Profile() {
                     </Box>
                 </Container>
             </ThemeProvider>
+
+            <Snackbar
+                open={errModel}
+                anchorOrigin={{
+                    vertical,
+                    horizontal,
+                }}
+                key={vertical + horizontal}
+            >
+                <Alert severity={alertType} sx={{ width: "100%" }}>
+                    {errMessege}
+                </Alert>
+            </Snackbar>
         </div>
     );
 

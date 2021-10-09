@@ -44,7 +44,8 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(rea.params.id, rea.body, { new: true });
+        // throw new error("Hello woreld");
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         return res.status(200).json({ user })
     }
