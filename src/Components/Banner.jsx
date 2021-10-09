@@ -7,12 +7,23 @@ export const Banner = () => {
   const sub = [
     "html",
     "css",
-    "js",
+    "physics",
+    "chemistry",
+    "history",
     "react",
     "react-dom",
     "redux",
     "material-ui",
     "nodejs",
+    "maths",
+    "javascript",
+    "css",
+    "redux",
+    "vue",
+    "angular",
+    "mongoDB",
+    "express",
+    "mongoose"
   ];
   const [subject, setSubject] = useState("");
   const [debounce, setDebounce] = useState(false);
@@ -48,7 +59,10 @@ export const Banner = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
           />
-          <Link style={{ textDecoration: "none" }} to={subject.length ? `/search/${subject}`: "/"}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={subject.length ? `/search/${subject}` : "/"}
+          >
             <div style={{ cursor: subject.length ? "pointer" : "not-allowed" }}>
               Find Mentor
             </div>
@@ -91,11 +105,19 @@ const Div = styled.div`
   min-height: 100vh;
   background: rgb(189, 232, 222);
   background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
+  @media screen and (max-width: 1000px) {
+    flex-direction: column-reverse;
+    min-height: 0;
+  }
   .left {
     width: 55%;
     padding-left: 150px;
     padding-right: 20px;
     position: relative;
+    @media screen and (max-width: 1000px) {
+      padding: 0px;
+      width: 80%;
+    }
     h1 {
       margin: 4px 0;
       font-size: 40px;
@@ -113,9 +135,13 @@ const Div = styled.div`
       align-items: center;
       background-color: #fff;
       padding: 10px;
-      width: 400px;
+      width: 70%;
       border-radius: 30px;
       margin-top: 40px;
+      @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        width: 90%;
+      }
       svg {
         color: #21d6c4;
       }
@@ -126,6 +152,9 @@ const Div = styled.div`
         width: 100%;
         margin: 0 10px;
         font-size: 15px;
+        @media screen and (max-width: 1000px) {
+          text-align: center;
+        }
       }
       div {
         background-color: #21d6c4;
@@ -141,6 +170,12 @@ const Div = styled.div`
         &:hover {
           background-color: dodgerblue;
           transition: 300ms ease-in-out;
+        }
+        @media screen and (max-width: 1000px) {
+          margin-top: 20px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
         }
       }
     }
@@ -167,6 +202,9 @@ const Div = styled.div`
   .right {
     width: 45%;
     padding: 25px;
+    @media screen and (max-width: 1000px) {
+      /* margin-top: -100px; */
+    }
     img {
       width: 100%;
     }

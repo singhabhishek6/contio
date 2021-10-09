@@ -20,7 +20,7 @@ export const Routes = () => {
       <Route exact path="/search/:data/:id">
         <Mentor />
       </Route>
-      <Route exact path="/profile">
+      <Route exact path="/profile/:id">
         <Profile />
       </Route>
       <Route exact path="/chats">

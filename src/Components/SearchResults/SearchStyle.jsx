@@ -2,11 +2,7 @@ import styled from "styled-components";
 
 export const SearchStyle = styled.div`
   background: rgb(189, 232, 222);
-  background: linear-gradient(
-    90deg,
-    rgba(189, 232, 222, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   width: 80%;
   padding: 0 135px;
   padding-top: 50px;

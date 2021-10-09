@@ -16,9 +16,9 @@ export const AuthProvider = ({ children }) => {
       setUser(user)
       setLoading(false)
       console.log(user)
-      if (user) history.push("/")
+      // if (user) history.push("/")
     })
-  }, [user, history])
+  }, [user])
 
   const value = { user }
 
