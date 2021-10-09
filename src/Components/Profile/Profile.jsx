@@ -26,7 +26,8 @@ export default function Profile() {
         age: "",
         email: "",
         bio: "",
-        about: ""
+        about: "",
+        avatar: ""
     });
 
     const [selected, setSelected] = React.useState([]);
@@ -50,7 +51,8 @@ export default function Profile() {
                 age: "",
                 email: "",
                 bio: "",
-                about: ""
+                about: "",
+                avatar: ""
             })
             return;
         }
@@ -63,7 +65,8 @@ export default function Profile() {
                     age: res.data.user.age,
                     email: res.data.user.email,
                     bio: res.data.user.bio,
-                    about: res.data.user.about
+                    about: res.data.user.about,
+                    avatar: res.data.user.avatar
                 });
             })
             .catch((err) => {
@@ -234,7 +237,7 @@ export default function Profile() {
                             />
                         </Grid>
 
-                        <img className={styles.profilePic} src="https://media-exp1.licdn.com/dms/image/C5603AQEw_6Vkak03Eg/profile-displayphoto-shrink_100_100/0/1630579254994?e=1639008000&v=beta&t=3WbGSSkhjmMKnrQspYKnYdMkatCMbHC-_iAexPOcrAE" alt="" />
+                        <img className={styles.profilePic} src={payload.avatar} alt="" />
 
                         <Button
                             type="submit"
