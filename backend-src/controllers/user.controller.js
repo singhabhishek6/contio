@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
         let per_page = +req.query.limit || 9;
         let offset = (page - 1) * per_page;
 
-        console.log(req.query.data);
         let proficiencyQuery = [];
         proficiencyQuery.push(req.query.data.toLowerCase());
         let users;

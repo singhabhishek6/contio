@@ -4,13 +4,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { MenuItem } from '@mui/material';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
 import { useEffect } from 'react';
+import styles from './profile.module.css';
+import Typography from '@mui/material/Typography';
+import ProficienciesInputBox from './ProficiencySelection';
 
 
 const theme = createTheme();
@@ -21,18 +22,19 @@ export default function Profile() {
     const [payload, setPayload] = React.useState({
         name: "",
         age: "",
-        gender: "",
         email: "",
         bio: "",
         about: ""
     });
+
+    const [selected, setSelected] = React.useState([]);
+    const profilePicRef = React.useRef(null);
 
     useEffect(() => {
         if (id === undefined) {
             setPayload({
                 name: "",
                 age: "",
-                gender: "",
                 email: "",
                 bio: "",
                 about: ""
@@ -40,16 +42,16 @@ export default function Profile() {
             return;
         }
 
-        axios.get(`http://localhost:1234/students/${id}`)
+        axios.get(`http://localhost:1234/users/${id}`)
             .then((res) => {
                 setPayload({
                     ...payload,
-                    name: res.data.student.name,
-                    age: res.data.student.age,
-                    gender: res.data.student.gender
+                    name: res.data.user.name,
+                    age: res.data.user.age,
+                    email: res.data.user.email,
+                    bio: res.data.user.bio,
+                    about: res.data.user.about
                 });
-            }).then(() => {
-                console.log(payload);
             })
             .catch((err) => {
                 console.log(err);
@@ -73,117 +75,202 @@ export default function Profile() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        handlePatchStudent();
+        console.log(payload);
+        // handlePatchStudent();
     };
 
+    const handleFileSelection = () => {
+        profilePicRef.current.click();
+    }
+
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    name="name"
-                                    required
-                                    fullWidth
-                                    id="Name"
-                                    label="Name"
-                                    type="text"
-                                    value={payload.name}
-                                    autoFocus
-                                />
+        <div className={styles.profileContainer}>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                        className={styles.formDiv}
+                    >
+                        <Typography component="h1" variant="h5">
+                            {"Edit Profile Details"}
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        onChange={(e) => { handleChange(e) }}
+                                        name="name"
+                                        required
+                                        fullWidth
+                                        id="Name"
+                                        label="Name"
+                                        type="text"
+                                        value={payload.name}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        onChange={(e) => { handleChange(e) }}
+                                        name="age"
+                                        required
+                                        fullWidth
+                                        id="age"
+                                        label="Age"
+                                        value={payload.age}
+                                        type='number'
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        onChange={(e) => { handleChange(e) }}
+                                        required
+                                        fullWidth
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                        name="email"
+                                        label="Email"
+                                        type="email"
+                                        value={payload.email}
+                                        id="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        onChange={(e) => { handleChange(e) }}
+                                        fullWidth
+                                        name="bio"
+                                        label="Bio"
+                                        type="bio"
+                                        value={payload.bio}
+                                        id="bio"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <ProficienciesInputBox selected={selected} setSelected={setSelected} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        onChange={(e) => { handleChange(e) }}
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        name="about"
+                                        label="About"
+                                        type="about"
+                                        value={payload.about}
+                                        id="about"
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    name="age"
-                                    required
-                                    fullWidth
-                                    id="age"
-                                    label="Age"
-                                    value={payload.age}
-                                    type='number'
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    required
-                                    fullWidth
-                                    id="gender"
-                                    label="Gender"
-                                    name="gender"
-                                    type="text"
-                                    value={payload.gender}
-                                    select
-                                >
-                                    <MenuItem value={"Male"}>
-                                        Male
-                                    </MenuItem>
-                                    <MenuItem value={"Female"}>
-                                        Female
-                                    </MenuItem>
-                                    <MenuItem value={"Other"}>
-                                        Other
-                                    </MenuItem>
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    required
-                                    fullWidth
-                                    name="email"
-                                    label="Email"
-                                    type="email"
-                                    value={payload.email}
-                                    id="email"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    fullWidth
-                                    name="bio"
-                                    label="Bio"
-                                    type="bio"
-                                    value={payload.bio}
-                                    id="bio"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={(e) => { handleChange(e) }}
-                                    fullWidth
-                                    name="about"
-                                    label="About"
-                                    type="about"
-                                    value={payload.about}
-                                    id="about"
-                                />
-                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                className={styles.submitBtn}
+                            >
+                                {"Update"}
+                            </Button>
+                        </Box>
+                    </Box>
+                </Container>
+            </ThemeProvider>
+
+            <ThemeProvider style={{ width: "50vw !important" }} theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                        className={styles.formDiv}
+                    >
+                        <Typography component="h1" variant="h5">
+                            {"Update Profile Photo"}
+                        </Typography>
+
+                        <Grid item xs={12}>
+                            <input
+                                name="avatar"
+                                type="file"
+                                ref={profilePicRef}
+                                style={{ display: "none" }}
+                            />
                         </Grid>
+
+                        <img className={styles.profilePic} src="https://media-exp1.licdn.com/dms/image/C5603AQEw_6Vkak03Eg/profile-displayphoto-shrink_100_100/0/1630579254994?e=1639008000&v=beta&t=3WbGSSkhjmMKnrQspYKnYdMkatCMbHC-_iAexPOcrAE" alt="" />
+
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            className={styles.profilePicBtn}
+                            onClick={handleFileSelection}
                         >
-                            {"Update"}
+                            {"Upload New Photo"}
                         </Button>
+
+                        <Typography component="h1" variant="h5">
+                            {"Change Password"}
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        name="password"
+                                        required
+                                        fullWidth
+                                        id="password"
+                                        label="Password"
+                                        type="password"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        name="new_password"
+                                        required
+                                        fullWidth
+                                        id="New Password"
+                                        label="New Password"
+                                        type='password'
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="confirm_password"
+                                        label="Confirm Password"
+                                        type="password"
+                                        id="confirm-password"
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                className={styles.submitBtn}
+                            >
+                                {"Update"}
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
-        </ThemeProvider>
+                </Container>
+            </ThemeProvider>
+        </div>
     );
+
 }
