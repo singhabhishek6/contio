@@ -6,12 +6,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         let page = +req.query.page || 1;
-        let per_page = +req.query.limit || 10;
+        let per_page = +req.query.limit || 9;
         let offset = (page - 1) * per_page;
 
-        // console.log(page, per_page);
-
-        let proficiencyQuery = req.body.proficiency;
+        console.log(req.query.data);
+        let proficiencyQuery = [];
+        proficiencyQuery.push(req.query.data.toLowerCase());
         let users;
         let totalUsers = 0;
         if (proficiencyQuery) {
@@ -34,7 +34,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        // console.log(req.body);
         const user = await User.create(req.body);
 
         return res.status(201).json({ user })
@@ -58,7 +57,7 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(rea.params.id);
+        const user = await User.findByIdAndDelete(req.params.id);
 
         return res.status(200).json({ status: "success" });
     }
@@ -70,7 +69,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const user = await User.findById(rea.params.id).lean().exec();
+        const user = await User.findById(req.params.id).lean().exec();
 
         return res.status(200).json({ user })
     }
