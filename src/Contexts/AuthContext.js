@@ -15,8 +15,6 @@ export const AuthProvider = ({ children }) => {
       setUser(user)
       setLoading(false)
       console.log(user)
-<<<<<<< HEAD
-=======
       // if (user) history.push("/")
       axios
         .get(`http://localhost:1234/users/check?email=${user.email}`)
@@ -29,7 +27,6 @@ export const AuthProvider = ({ children }) => {
             })
           }
         })
->>>>>>> 6c0ba7c6a1c846bcd10302f0065dda924d337bf8
     })
   }, [user])
 

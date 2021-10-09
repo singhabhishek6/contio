@@ -65,6 +65,7 @@ export const Navbar = () => {
                 width: showlog && "180px",
                 padding: showlog && "10px",
                 transition: "500ms",
+                zIndex: "1000",
               }}
               className="logout"
             >

@@ -4,6 +4,20 @@ export const MentorStyled = styled.div`
   background: rgb(189, 232, 222);
   background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   min-height: 100vh;
+  .alert{
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 30px;
+    font-weight: 600;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    padding: 40px 70px;
+    border-radius: 60px;
+    transition: all 200ms;
+  }
 
   & .wrapper {
     position: relative;
@@ -44,6 +58,7 @@ export const MentorStyled = styled.div`
 
         .chat {
           padding: 10px 15px;
+          margin: 10px;
           margin-right: 140px;
           border-radius: 5px;
           font-weight: 500;
@@ -51,6 +66,11 @@ export const MentorStyled = styled.div`
           letter-spacing: 1px;
           cursor: pointer;
           background-color: rgb(82, 192, 245);
+          transition: 300ms;
+          &:hover{
+            background-color: #21d6c4;
+            transition: 300ms;
+          }
         }
       }
     }
@@ -100,7 +120,7 @@ export const MentorStyled = styled.div`
         .avtar {
           display: inline;
           width: 30px;
-          margin-left: 40px;
+          margin-left: 30px;
           height: 30px;
           display: flex;
           align-items: center;
@@ -108,8 +128,8 @@ export const MentorStyled = styled.div`
           border-radius: 50%;
           color: white;
           font-weight: 500;
-          margin-right: 10px;
-          background-color: red;
+          margin-right: 20px;
+          background-color: #ff000092;
         }
         .n {
           width: 120px;
