@@ -1,6 +1,6 @@
 import { Rating } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { MentorStyled } from "./MentorStyle";
 import ReactCardCarousel from "react-card-carousel";
 import { MyCarousel } from "./Carousel";
@@ -12,7 +12,7 @@ export const Mentor = () => {
   const { id } = useParams();
   const [user,setuser] = useState([])
   const [users,setusers] = useState([])
-  const x=[1,1,1,1,1]
+  const history = useHistory()
 
   useEffect(() => {
     axios(`http://localhost:1234/users/${id}`)
@@ -25,23 +25,24 @@ export const Mentor = () => {
         console.log(res);
         setusers(res.data.users)
     })
+    window.addEventListener("scroll", () => {
+      console.log("sad");
+    document.querySelector(".profileInfo")?.classList.toggle("expand", window.scrollY);
+    document.querySelector(".bb")?.classList.toggle("shrink", window.scrollY);
+  });
     
   }, [])
 
-  window.addEventListener("scroll", () => {
-      console.log("sad");
-    document.querySelector(".profileInfo").classList.toggle("expand", window.scrollY);
-    document.querySelector("img").classList.toggle("shrink", window.scrollY);
-  });
+
 
   console.log(user.teacher_review);
   return (
     <>
-    {/* <Navbar/> */}
+    <Navbar/>
     <MentorStyled>
       <div className="wrapper">
         <div className="profileInfo">
-          <img
+          <img className="bb"
             src={`https://joeschmoe.io/api/v1/${user.name}`}
             alt=""
           />
@@ -57,7 +58,9 @@ export const Mentor = () => {
                 <span>Offline</span>
               </div>}
             </div>
-            <div className="chat">Chat</div>
+            <div onClick={()=>{
+              history.push("/chats")
+            }} className="chat">Chat</div>
           </div>
         </div>
         <div className="bio">

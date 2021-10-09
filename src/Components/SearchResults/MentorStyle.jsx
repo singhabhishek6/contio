@@ -20,7 +20,7 @@ export const MentorStyled = styled.div`
       padding: 20px 0;
       display: flex;
       align-items: center;
-      & img {
+      & .bb {
         margin-left: 100px;
         width: 250px;
         transition: 100ms ease-in-out;
