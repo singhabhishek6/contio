@@ -50,7 +50,7 @@ export const VideoBanner = () => {
 const Div = styled.div`
 padding-bottom: 50px;
   background: rgb(189, 232, 222);
-  background: linear-gradient(90deg, #97f8e2 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   h1 {
     text-align: center;
     margin: 0;

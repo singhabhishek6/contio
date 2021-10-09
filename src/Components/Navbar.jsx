@@ -11,6 +11,9 @@ import MailIcon from "@mui/icons-material/Mail";
 export const Navbar = () => {
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
+  const [user, setUser] = useState(false);
+  const [showlog, setShowlog] = useState(false);
+
   return (
     <Nav>
       <Link to="/">
@@ -19,8 +22,40 @@ export const Navbar = () => {
       <div className="navbtns">
         <p>Become a Mentor</p>
         <p>Messages</p>
-        <p onClick={() => setSignup(true)}>Sign Up</p>
-        <p onClick={() => setLogin(true)}>Log In</p>
+        {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
+        {!user && <p onClick={() => setLogin(true)}>Log In</p>}
+        {user && (
+          <div className="userDetails">
+            <div
+              onClick={() => setShowlog(!showlog)}
+              onBlur={() => setShowlog(false)}
+              className="user"
+            >
+              <p>Subham</p>
+              <img src="https://joeschmoe.io/api/v1/abhi" alt="" />
+            </div>
+            <div
+              style={{
+                width: showlog && "180px",
+                padding: showlog && "10px",
+                transition: "500ms",
+              }}
+              className="logout"
+            >
+              <p onClick={() => setShowlog(false)}>My Dashboard</p>
+              <p onClick={() => setShowlog(false)}>Class Requests</p>
+              <p onClick={() => setShowlog(false)}>My Profile</p>
+              <p
+                onClick={() => {
+                  setShowlog(false);
+                  setUser(false);
+                }}
+              >
+                Logout
+              </p>
+            </div>
+          </div>
+        )}
       </div>
       {login && (
         <div className="login">
@@ -41,7 +76,15 @@ export const Navbar = () => {
               label="Password"
               variant="filled"
             />
-            <div className="loginbtn">Login</div>
+            <div
+              onClick={() => {
+                setUser(true);
+                setLogin(false);
+              }}
+              className="loginbtn"
+            >
+              Login
+            </div>
             <div className="fbgooglebtn">
               <div className="fb">
                 <FacebookRoundedIcon />
@@ -89,14 +132,19 @@ export const Navbar = () => {
               </div>
             </div>
             <h4>
-              You already have an account? <span onClick={() => {
-                setSignup(false);
-                setLogin(true);
-              }}>Log in</span>
+              You already have an account?{" "}
+              <span
+                onClick={() => {
+                  setSignup(false);
+                  setLogin(true);
+                }}
+              >
+                Log in
+              </span>
             </h4>
             <h4 className="tnc">
-              On registering by email or Facebook, you accept our <span>legal terms &
-              conditions.</span>
+              On registering by email or Facebook, you accept our{" "}
+              <span>legal terms & conditions.</span>
             </h4>
           </div>
         </div>
@@ -109,24 +157,55 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0px 4px 10px gray;
   background: rgb(189, 232, 222);
-  background: linear-gradient(90deg, #97f8e2 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   img {
     width: 50px;
     cursor: pointer;
   }
   .navbtns {
     display: flex;
+    align-items: center;
     p {
       margin: 0 15px;
       font-weight: 600;
       cursor: pointer;
       transition: 500ms;
       &:hover {
-        transform: translateY(-6px);
+        transform: translateY(-2px);
         transition: 200ms;
+        color: dodgerblue;
+      }
+    }
+    .userDetails {
+      position: relative;
+      .user {
+        display: flex;
+        align-items: center;
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 35px;
+      }
+      img {
+        width: 30px;
+        border-radius: 50%;
+        box-shadow: 2px 2px 5px gray;
+      }
+      .logout {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #fff;
+        overflow: hidden;
+        width: 0px;
+        padding: 0px;
+        border-radius: 15px;
+        box-shadow: 4px 4px 10px grey;
+        p {
+          padding: 15px;
+        }
       }
     }
   }
@@ -200,7 +279,7 @@ const Nav = styled.nav`
         color: #999;
         font-weight: 500;
         text-align: center;
-        span{
+        span {
           color: #555;
           text-decoration: underline;
         }

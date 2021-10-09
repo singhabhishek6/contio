@@ -90,7 +90,7 @@ const Div = styled.div`
   align-items: center;
   min-height: 100vh;
   background: rgb(189, 232, 222);
-  background: linear-gradient(90deg, #97f8e2 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   .left {
     width: 55%;
     padding-left: 150px;
