@@ -48,13 +48,13 @@ export const SearchResult = () => {
             <div className="text-container">
               <h3>{el.name}</h3>
               <Rating name="read-only" value={el.teacher_review} readOnly />
-              <div>
-               {
-                 el.proficiency.map(res=>{
-                   return <span>#{res} </span>
-                 })
-               }
-              </div>
+              <div className="sdf">
+           {
+              el.proficiency!=undefined ? el.proficiency.map(r=>{
+                return <span>{r}</span>
+              }):null
+            }
+           </div>
               {el.isOnline?<div className="status">
                 <span style={{backgroundColor:"green"}} className="dot"></span>
                 <span>Online</span>
@@ -68,8 +68,8 @@ export const SearchResult = () => {
         );
       })}
       </div>
-    </SearchStyle>
     <Pagination page={page} count={pages} variant="outlined" shape="rounded" onChange={handlePage}/>
+    </SearchStyle>
     <Footer/>
     </>
   );
