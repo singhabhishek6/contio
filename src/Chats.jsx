@@ -72,8 +72,10 @@ function Chats() {
     <div className="chats-page">
       <div className="nav-bar">
         <div className="logo-tab">Contio</div>
-        <div className="logout-tab" onClick={handleLogout}>
-          Logout
+        <div className="logout-tab" onClick={()=>{
+          history.goBack()
+        }}>
+          Back
         </div>
       </div>
       <ChatEngine

@@ -29,7 +29,7 @@ export const Routes = () => {
       <Route exact path="/doubts">
         <Chatbot />
       </Route>
-
+      
       {/* <Route exact path="/oauth"></Route> */}
     </Switch>
   )
