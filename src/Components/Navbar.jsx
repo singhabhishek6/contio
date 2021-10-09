@@ -30,12 +30,11 @@ export const Navbar = () => {
       </Link>
       <div className="navbtns">
         {user && (
-          <Link to="/doubts">
-            {" "}
-            <p>Ask Doubts</p>
-          </Link>
+          // <Link to="/doubts">
+            <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"><p>Ask Doubts</p></a>
+          // </Link>
         )}
-        <p>Become a Mentor</p>
+        <a rel="noreferrer" href="http://localhost:4000/" target="_blank"><p>Become a Mentor</p></a>
         <Link to="/chats">
           {" "}
           <p>Messages</p>
