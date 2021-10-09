@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
         // console.log(page, per_page);
 
         let proficiencyQuery = req.body.proficiency;
+        console.log(req.body);
         let users;
         let totalUsers = 0;
         if (proficiencyQuery) {
@@ -58,7 +59,7 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(rea.params.id);
+        const user = await User.findByIdAndDelete(req.params.id);
 
         return res.status(200).json({ status: "success" });
     }
@@ -70,7 +71,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const user = await User.findById(rea.params.id).lean().exec();
+        const user = await User.findById(req.params.id).lean().exec();
 
         return res.status(200).json({ user })
     }
