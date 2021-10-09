@@ -1,3 +1,4 @@
+import axios from "axios"
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../Firebase"
 
@@ -14,6 +15,21 @@ export const AuthProvider = ({ children }) => {
       setUser(user)
       setLoading(false)
       console.log(user)
+<<<<<<< HEAD
+=======
+      // if (user) history.push("/")
+      axios
+        .get(`http://localhost:1234/users/check?email=${user.email}`)
+        .then(({ data }) => {
+          if (data.user.length === 0) {
+            axios.post("http://localhost:1234/users", {
+              name: user.displayName,
+              email: user.email,
+              avatar: user.photoURL || "",
+            })
+          }
+        })
+>>>>>>> 6c0ba7c6a1c846bcd10302f0065dda924d337bf8
     })
   }, [user])
 

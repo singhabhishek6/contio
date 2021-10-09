@@ -31,6 +31,17 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/check', async (req, res) => {
+    try {
+        const user = await User.find({ email: req.params.email }).lean().exec();
+
+        return res.status(200).json({ user });
+    }
+    catch (err) {
+        return res.status(400).json({ status: "failed", message: err.message });
+    }
+})
+
 router.post('/', async (req, res) => {
     try {
         const user = await User.create(req.body);
@@ -44,7 +55,6 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-        // throw new error("Hello woreld");
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         return res.status(200).json({ user })

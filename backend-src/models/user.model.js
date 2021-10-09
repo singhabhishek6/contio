@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: false },
     teacher_review: { type: Number, required: false, default: 2 },
     student_review: { type: Number, required: false, default: 2 },
-  },
-  {
+    review_count: { type: Number, required: false, default: 1}
+}, {
     versionKey: false,
     timestamps: true,
   }
