@@ -49,8 +49,19 @@ export const SearchResult = () => {
               <h3>{el.name}</h3>
               <Rating name="read-only" value={el.teacher_review} readOnly />
               <div>
-                This a demo experiment to skew image container. It looks good.
+               {
+                 el.proficiency.map(res=>{
+                   return <span>#{res} </span>
+                 })
+               }
               </div>
+              {el.isOnline?<div className="status">
+                <span style={{backgroundColor:"green"}} className="dot"></span>
+                <span>Online</span>
+              </div>:<div className="status">
+                <span style={{backgroundColor:"red"}} className="dot"></span>
+                <span>Offline</span>
+              </div>}
             </div>
           </div>
          </Link>

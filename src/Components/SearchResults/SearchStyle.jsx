@@ -81,4 +81,18 @@ export const SearchStyle = styled.div`
     color: #04bcff;
     font-size: 18px;
   }
-`;
+  .status{
+      width: 100px;
+      text-align: left;
+      margin-left: 20px;
+
+      .dot{
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: green;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+  }
+`
