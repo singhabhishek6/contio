@@ -2,62 +2,54 @@ import axios from "axios"
 import Pusher from "pusher-js"
 import React, { useEffect, useState } from "react"
 import styles from "./Chatbot.module.css"
+import { ChatList } from "./ChatList"
+import { ChatBox } from "./ChatBox"
+import { useAuth } from "../Contexts/AuthContext"
 function Chatbot() {
-  const [message, setMessage] = useState("")
+  const { user } = useAuth()
+
+  const [text, setText] = useState("")
   const [username, setUsername] = useState("")
-  const [messages, setMessages] = useState([])
-
+  let [chats, setChats] = useState([])
+  const handleTextChange = (e) => {
+    if (e.keyCode === 13) {
+      const payload = {
+        username: username,
+        message: text,
+      }
+      axios.post("http://localhost:1234/message", payload)
+    } else {
+      setText(e.target.value)
+    }
+  }
   useEffect(() => {
-    Pusher.logToConsole = true
-
+    setUsername(user.email)
     const pusher = new Pusher("8c79b67adca098eeafac", {
       cluster: "ap2",
+      encrypted: true,
     })
-
-    var channel = pusher.subscribe("chat")
-    channel.bind("message", function (data) {
-      setMessages([...messages, data])
+    const channel = pusher.subscribe("chat")
+    channel.bind("message", (data) => {
+      // console.log("data:", data)
+      chats.push(data)
+      setChats([...chats])
+      // console.log(chats)
     })
   }, [])
-  const handleSend = () => {
-    axios
-      .post("http://localhost:1234/api/messages", { username, message })
-      .then(({ data }) => {
-        setMessage("")
-      })
-  }
+
   return (
-    <>
-      <input
-        type="text"
-        name=""
-        id=""
-        placeholder="enter username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <div className={styles.rootCont}>
-        {messages.map((item) => {
-          return (
-            <div className={styles.messageCont}>
-              <h3>{item.username}</h3>
-              <p>{item.message}</p>
-            </div>
-          )
-        })}
-        <div className={styles.chatInput}>
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="write something..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={handleSend}>send</button>
-        </div>
-      </div>
-    </>
+    <div className="App">
+      <h1 className="App-title">Welcome to Doubt Room</h1>
+
+      <section>
+        <ChatList chats={chats} />
+        <ChatBox
+          text={text}
+          username={username}
+          handleTextChange={handleTextChange}
+        />
+      </section>
+    </div>
   )
 }
 

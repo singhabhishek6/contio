@@ -1,28 +1,45 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import logo from "../img/logo.png";
-import TextField from "@mui/material/TextField";
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
-import GoogleIcon from "@mui/icons-material/Google";
-import CloseIcon from "@mui/icons-material/Close";
-import MailIcon from "@mui/icons-material/Mail";
-
+import React, { useState } from "react"
+import { Link, useHistory } from "react-router-dom"
+import styled from "styled-components"
+import logo from "../img/logo.png"
+import TextField from "@mui/material/TextField"
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded"
+import GoogleIcon from "@mui/icons-material/Google"
+import CloseIcon from "@mui/icons-material/Close"
+import MailIcon from "@mui/icons-material/Mail"
+import "firebase/app"
+import { auth } from "../Firebase"
+import firebase from "firebase/compat"
 export const Navbar = () => {
-  const [login, setLogin] = useState(false);
-  const [signup, setSignup] = useState(false);
-  const [user, setUser] = useState(false);
-  const [showlog, setShowlog] = useState(false);
+  const [login, setLogin] = useState(false)
+  const [signup, setSignup] = useState(false)
+  const [user, setUser] = useState(false)
+  const [showlog, setShowlog] = useState(false)
+  const history = useHistory()
+  const handleLogout = async () => {
+    setShowlog(false)
+    setUser(false)
+    await auth.signOut()
 
+    history.push("/")
+  }
   return (
     <Nav>
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>
       <div className="navbtns">
-        {user && <p>Ask Doubts</p>}
+        {user && (
+          <Link to="/doubts">
+            {" "}
+            <p>Ask Doubts</p>
+          </Link>
+        )}
         <p>Become a Mentor</p>
-        <p>Messages</p>
+        <Link to="/chats">
+          {" "}
+          <p>Messages</p>
+        </Link>
         {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
         {!user && <p onClick={() => setLogin(true)}>Log In</p>}
         {user && (
@@ -48,8 +65,7 @@ export const Navbar = () => {
               <p onClick={() => setShowlog(false)}>My Profile</p>
               <p
                 onClick={() => {
-                  setShowlog(false);
-                  setUser(false);
+                  handleLogout()
                 }}
               >
                 Logout
@@ -79,8 +95,8 @@ export const Navbar = () => {
             />
             <div
               onClick={() => {
-                setUser(true);
-                setLogin(false);
+                setUser(true)
+                setLogin(false)
               }}
               className="loginbtn"
             >
@@ -91,17 +107,23 @@ export const Navbar = () => {
                 <FacebookRoundedIcon />
                 <div>Facebook</div>
               </div>
-              <div className="google">
-                <GoogleIcon />
-                <div>Google</div>
+              <div
+                className="google"
+                onClick={() =>
+                  auth.signInWithRedirect(
+                    new firebase.auth.GoogleAuthProvider()
+                  )
+                }
+              >
+                <GoogleIcon /> <div>Google</div>
               </div>
             </div>
             <h4>Don't have an account?</h4>
             <h4
               className="signup"
               onClick={() => {
-                setLogin(false);
-                setSignup(true);
+                setLogin(false)
+                setSignup(true)
               }}
             >
               Sign Up
@@ -136,8 +158,8 @@ export const Navbar = () => {
               You already have an account?{" "}
               <span
                 onClick={() => {
-                  setSignup(false);
-                  setLogin(true);
+                  setSignup(false)
+                  setLogin(true)
                 }}
               >
                 Log in
@@ -151,8 +173,8 @@ export const Navbar = () => {
         </div>
       )}
     </Nav>
-  );
-};
+  )
+}
 
 const Nav = styled.nav`
   display: flex;
@@ -373,4 +395,4 @@ const Nav = styled.nav`
       }
     }
   }
-`;
+`
