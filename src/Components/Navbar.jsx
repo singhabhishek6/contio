@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../img/logo.png"
@@ -10,15 +10,20 @@ import MailIcon from "@mui/icons-material/Mail"
 import "firebase/app"
 import { auth } from "../Firebase"
 import firebase from "firebase/compat"
+import { AuthProvider, useAuth } from "../Contexts/AuthContext"
 export const Navbar = () => {
   const [login, setLogin] = useState(false)
   const [signup, setSignup] = useState(false)
-  const [user, setUser] = useState(false)
+  const [fake, setFake] = useState(false)
   const [showlog, setShowlog] = useState(false)
+  const {user} = useAuth()
   const history = useHistory()
+
+  console.log(user);
+
   const handleLogout = async () => {
     setShowlog(false)
-    setUser(false)
+    setFake(false)
     await auth.signOut()
 
     history.push("/")
@@ -29,27 +34,26 @@ export const Navbar = () => {
         <img src={logo} alt="logo" />
       </Link>
       <div className="navbtns">
-        {user && (
+        {fake && (
           // <Link to="/doubts">
             <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"><p>Ask Doubts</p></a>
           // </Link>
         )}
         <a rel="noreferrer" href="http://localhost:4000/" target="_blank"><p>Become a Mentor</p></a>
         <Link to="/chats">
-          {" "}
           <p>Messages</p>
         </Link>
-        {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
-        {!user && <p onClick={() => setLogin(true)}>Log In</p>}
-        {user && (
+        {!fake && <p onClick={() => setSignup(true)}>Sign Up</p>}
+        {!fake && <p onClick={() => setLogin(true)}>Log In</p>}
+        {fake && (
           <div className="userDetails">
             <div
               onClick={() => setShowlog(!showlog)}
               onBlur={() => setShowlog(false)}
               className="user"
             >
-              <p>Subham</p>
-              <img src="https://joeschmoe.io/api/v1/abhi" alt="" />
+              <p>{user ? user.displayName.slice(0,8) : "Subham"}</p>
+              <img src={user.photoURL} alt="" />
             </div>
             <div
               style={{
@@ -94,7 +98,7 @@ export const Navbar = () => {
             />
             <div
               onClick={() => {
-                setUser(true)
+                setFake(true)
                 setLogin(false)
               }}
               className="loginbtn"
