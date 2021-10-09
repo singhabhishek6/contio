@@ -1,58 +1,63 @@
-import React, { useContext, useState } from "react"
-import { Link, useHistory } from "react-router-dom"
-import styled from "styled-components"
-import logo from "../img/logo.png"
-import TextField from "@mui/material/TextField"
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded"
-import GoogleIcon from "@mui/icons-material/Google"
-import CloseIcon from "@mui/icons-material/Close"
-import MailIcon from "@mui/icons-material/Mail"
-import "firebase/app"
-import { auth } from "../Firebase"
-import firebase from "firebase/compat"
-import { AuthProvider, useAuth } from "../Contexts/AuthContext"
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import logo from "../img/logo.png";
+import TextField from "@mui/material/TextField";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import GoogleIcon from "@mui/icons-material/Google";
+import CloseIcon from "@mui/icons-material/Close";
+import MailIcon from "@mui/icons-material/Mail";
+import "firebase/app";
+import { auth } from "../Firebase";
+import firebase from "firebase/compat";
+import { useAuth } from "../Contexts/AuthContext";
 export const Navbar = () => {
-  const [login, setLogin] = useState(false)
-  const [signup, setSignup] = useState(false)
-  const [fake, setFake] = useState(false)
-  const [showlog, setShowlog] = useState(false)
-  const {user} = useAuth()
-  const history = useHistory()
+  const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
+  const [fake, setFake] = useState(false);
+  const [showlog, setShowlog] = useState(false);
+  const { user } = useAuth();
+  const history = useHistory();
 
   console.log(user);
 
   const handleLogout = async () => {
-    setShowlog(false)
-    setFake(false)
-    await auth.signOut()
+    setShowlog(false);
+    // setFake(false)
+    await auth.signOut();
 
-    history.push("/")
-  }
+    history.push("/");
+  };
+
   return (
     <Nav>
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>
       <div className="navbtns">
-        {fake && (
-          // <Link to="/doubts">
-            <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"><p>Ask Doubts</p></a>
-          // </Link>
+        {user && (
+          <Link to="/doubts">
+            {/* <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"> */}
+            <p>Ask Doubts</p>
+            {/* </a> */}
+          </Link>
         )}
-        <a rel="noreferrer" href="http://localhost:4000/" target="_blank"><p>Become a Mentor</p></a>
+        <a rel="noreferrer" href="http://localhost:4000/" target="_blank">
+          <p>Become a Mentor</p>
+        </a>
         <Link to="/chats">
           <p>Messages</p>
         </Link>
-        {!fake && <p onClick={() => setSignup(true)}>Sign Up</p>}
-        {!fake && <p onClick={() => setLogin(true)}>Log In</p>}
-        {fake && (
+        {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
+        {!user && <p onClick={() => setLogin(true)}>Log In</p>}
+        {user && (
           <div className="userDetails">
             <div
               onClick={() => setShowlog(!showlog)}
               onBlur={() => setShowlog(false)}
               className="user"
             >
-              <p>{user ? user.displayName.slice(0,8) : "Subham"}</p>
+              <p>{user ? user.displayName.slice(0, 8) : "Subham"}</p>
               <img src={user.photoURL} alt="" />
             </div>
             <div
@@ -68,7 +73,7 @@ export const Navbar = () => {
               <p onClick={() => setShowlog(false)}>My Profile</p>
               <p
                 onClick={() => {
-                  handleLogout()
+                  handleLogout();
                 }}
               >
                 Logout
@@ -98,8 +103,8 @@ export const Navbar = () => {
             />
             <div
               onClick={() => {
-                setFake(true)
-                setLogin(false)
+                setFake(true);
+                setLogin(false);
               }}
               className="loginbtn"
             >
@@ -112,11 +117,10 @@ export const Navbar = () => {
               </div>
               <div
                 className="google"
-                onClick={() =>
-                  auth.signInWithPopup(
-                    new firebase.auth.GoogleAuthProvider()
-                  )
-                }
+                onClick={() => {
+                  setLogin(false);
+                  auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+                }}
               >
                 <GoogleIcon /> <div>Google</div>
               </div>
@@ -125,8 +129,8 @@ export const Navbar = () => {
             <h4
               className="signup"
               onClick={() => {
-                setLogin(false)
-                setSignup(true)
+                setLogin(false);
+                setSignup(true);
               }}
             >
               Sign Up
@@ -161,8 +165,8 @@ export const Navbar = () => {
               You already have an account?{" "}
               <span
                 onClick={() => {
-                  setSignup(false)
-                  setLogin(true)
+                  setSignup(false);
+                  setLogin(true);
                 }}
               >
                 Log in
@@ -176,8 +180,8 @@ export const Navbar = () => {
         </div>
       )}
     </Nav>
-  )
-}
+  );
+};
 
 const Nav = styled.nav`
   display: flex;
@@ -194,6 +198,10 @@ const Nav = styled.nav`
   .navbtns {
     display: flex;
     align-items: center;
+    a{
+      text-decoration: none;
+      color: #111;
+    }
     p {
       margin: 0 15px;
       font-weight: 600;
@@ -408,4 +416,4 @@ const Nav = styled.nav`
       }
     }
   }
-`
+`;

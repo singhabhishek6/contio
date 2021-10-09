@@ -23,3 +23,19 @@
   flex-direction: column;
   border: 2px solid black;
 }
+.chatlist{
+  border: 2px solid black;
+  height: 200px;
+  background-color: red;
+}
+.doubtroom{
+  background: rgb(189, 232, 222);
+  background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
+  height: 100vh;
+  padding-top: 0px;
+}
+.title{
+  margin-top: 0;
+  padding-top: 23px;
+  text-align: center;
+}
