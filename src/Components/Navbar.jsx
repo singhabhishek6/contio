@@ -20,6 +20,7 @@ export const Navbar = () => {
         <img src={logo} alt="logo" />
       </Link>
       <div className="navbtns">
+        {user && <p>Ask Doubts</p>}
         <p>Become a Mentor</p>
         <p>Messages</p>
         {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
