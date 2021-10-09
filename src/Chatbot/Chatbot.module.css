@@ -1,0 +1,25 @@
+.rootCont {
+  height: 500px;
+  width: 300px;
+  margin: auto;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-y: auto;
+}
+.chatInput {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  border-top: 2px solid black;
+  justify-content: space-around;
+  /* margin: auto; */
+}
+.messageCont {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+}
