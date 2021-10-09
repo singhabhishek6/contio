@@ -30,12 +30,11 @@ export const Navbar = () => {
       </Link>
       <div className="navbtns">
         {user && (
-          <Link to="/doubts">
-            {" "}
-            <p>Ask Doubts</p>
-          </Link>
+          // <Link to="/doubts">
+            <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"><p>Ask Doubts</p></a>
+          // </Link>
         )}
-        <p>Become a Mentor</p>
+        <a rel="noreferrer" href="http://localhost:4000/" target="_blank"><p>Become a Mentor</p></a>
         <Link to="/chats">
           {" "}
           <p>Messages</p>
@@ -110,7 +109,7 @@ export const Navbar = () => {
               <div
                 className="google"
                 onClick={() =>
-                  auth.signInWithRedirect(
+                  auth.signInWithPopup(
                     new firebase.auth.GoogleAuthProvider()
                   )
                 }
@@ -196,6 +195,10 @@ const Nav = styled.nav`
       font-weight: 600;
       cursor: pointer;
       transition: 500ms;
+      @media screen and (max-width: 600px) {
+        margin: 0 5px;
+        font-size: 80%;
+      }
       &:hover {
         transform: translateY(-2px);
         transition: 200ms;
@@ -253,6 +256,9 @@ const Nav = styled.nav`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 600px) {
+        width: 90%;
+      }
       .close {
         position: absolute;
         top: 20px;
@@ -321,6 +327,9 @@ const Nav = styled.nav`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 600px) {
+        width: 90%;
+      }
       .close {
         position: absolute;
         top: 20px;

@@ -48,7 +48,7 @@ export const VideoBanner = () => {
 };
 
 const Div = styled.div`
-padding-bottom: 50px;
+  padding-bottom: 50px;
   background: rgb(189, 232, 222);
   background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
   h1 {
@@ -63,19 +63,33 @@ padding-bottom: 50px;
       justify-content: space-between;
       width: 60%;
       margin: 50px auto;
-      .step_text{
+      @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        width: 100%;
+        margin-left: -20px;
+      }
+      .step_text {
         width: 40%;
-        p{
-            font-weight: 600;
+        @media screen and (max-width: 1000px) {
+          width: 90%;
+        }
+        p {
+          font-weight: 600;
         }
       }
-      img{
-          width: 40%;
-          border-radius: 10px;
-          box-shadow: 4px 4px 10px gray;
+      img {
+        width: 40%;
+        border-radius: 10px;
+        box-shadow: 4px 4px 10px gray;
+        @media screen and (max-width: 1000px) {
+          width: 90%;
+        }
       }
       &:nth-child(even) {
-          flex-direction: row-reverse;
+        flex-direction: row-reverse;
+        @media screen and (max-width: 1000px) {
+          flex-direction: column;
+        }
       }
     }
   }

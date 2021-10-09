@@ -50,6 +50,11 @@ function Chats() {
         getFile(user.photoURL).then((avatar) => {
           formdata.append("avatar", avatar, avatar.name)
 
+          axios.post("http://localhost:1234/users", {
+            name: user.displayName,
+            email: user.email,
+            avatar: user.photoURL || "",
+          })
           axios
             .post("https://api.chatengine.io/users", formdata, {
               headers: {
@@ -72,8 +77,10 @@ function Chats() {
     <div className="chats-page">
       <div className="nav-bar">
         <div className="logo-tab">Contio</div>
-        <div className="logout-tab" onClick={handleLogout}>
-          Logout
+        <div className="logout-tab" onClick={()=>{
+          history.goBack()
+        }}>
+          Back
         </div>
       </div>
       <ChatEngine

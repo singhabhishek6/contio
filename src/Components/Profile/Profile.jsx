@@ -1,48 +1,99 @@
-import * as React from 'react';
-import { useState } from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
-import { useHistory, useParams } from 'react-router';
-import { useEffect } from 'react';
-import styles from './profile.module.css';
-import Typography from '@mui/material/Typography';
-import ProficienciesInputBox from './ProficiencySelection';
-import { Alert, Snackbar } from "@mui/material";
+import * as React from "react"
+import { useState } from "react"
+import Button from "@mui/material/Button"
+import CssBaseline from "@mui/material/CssBaseline"
+import TextField from "@mui/material/TextField"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import axios from "axios"
+import { useHistory, useParams } from "react-router"
+import { useEffect } from "react"
+import styles from "./profile.module.css"
+import Typography from "@mui/material/Typography"
+import ProficienciesInputBox from "./ProficiencySelection"
+import { Alert, Snackbar } from "@mui/material"
 
-
-const theme = createTheme();
+const theme = createTheme()
 
 export default function Profile() {
-    const history = useHistory();
-    const { id } = useParams();
+    const history = useHistory()
+    const { id } = useParams()
     const [payload, setPayload] = React.useState({
         name: "",
         age: "",
         email: "",
         bio: "",
         about: "",
-        avatar: ""
-    });
+        avatar: "",
+    })
 
-    const [selected, setSelected] = React.useState([]);
-    const profilePicRef = React.useRef(null);
-    const [errModel, setErrModel] = useState(false);
-    const [errMessege, setErrMessage] = useState("");
-    const [alertType, setAlertType] = useState("success");
+    const [selected, setSelected] = React.useState([])
+    const profilePicRef = React.useRef(null)
+    const [errModel, setErrModel] = useState(false)
+    const [errMessege, setErrMessage] = useState("")
+    const [alertType, setAlertType] = useState("success")
 
     const state1 = {
         vertical: "top",
         horizontal: "right",
     }
-    const { vertical, horizontal } = state1;
+    const { vertical, horizontal } = state1
 
+    useEffect(() => {
+        if (id === undefined) {
+            setPayload({
+                name: "",
+                age: "",
+                email: "",
+                bio: "",
+                about: "",
+                avatar: ""
+            });
 
+            const [selected, setSelected] = React.useState([]);
+            const profilePicRef = React.useRef(null);
+            const [errModel, setErrModel] = useState(false);
+            const [errMessege, setErrMessage] = useState("");
+            const [alertType, setAlertType] = useState("success");
+
+            const state1 = {
+                vertical: "top",
+                horizontal: "right",
+            }
+
+            axios
+                .get(`http://localhost:1234/users/${id}`)
+                .then((res) => {
+                    setPayload({
+                        ...payload,
+                        name: res.data.user.name,
+                        age: res.data.user.age,
+                        email: res.data.user.email,
+                        bio: res.data.user.bio,
+                        about: res.data.user.about,
+                        avatar: res.data.user.avatar,
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+                
+        }, [id])
+
+    const handlePatchStudent = () => {
+        axios
+            .patch(`http://localhost:1234/users/${id}`, payload)
+            .then((res) => {
+                handleAlert("Updated")
+                history.push(`/profile/${id}`)
+            })
+            .catch((err) => {
+                setAlertType("error")
+                console.log(err)
+            })
+    }
 
     useEffect(() => {
         if (id === undefined) {
@@ -74,40 +125,18 @@ export default function Profile() {
             })
     }, [id])
 
-    const handlePatchStudent = () => {
-        axios.patch(`http://localhost:1234/users/${id}`, payload)
-            .then((res) => {
-                handleAlert("Updated");
-                history.push(`/profile/${id}`);
-            })
-            .catch((err) => {
-                setAlertType("error");
-                console.log(err);
-            })
-    }
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setPayload({ ...payload, [name]: value });
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        handlePatchStudent();
-    };
-
     const handleFileSelection = () => {
-        profilePicRef.current.click();
+        profilePicRef.current.click()
     }
 
     const handleAlert = (message) => {
-        setErrMessage(message);
-        setErrModel(true);
+        setErrMessage(message)
+        setErrModel(true)
         setTimeout(() => {
-            setErrModel(false);
-            setAlertType("success");
-        }, 2000);
-    };
+            setErrModel(false)
+            setAlertType("success")
+        }, 2000)
+    }
 
     return (
         <div className={styles.profileContainer}>
@@ -117,20 +146,27 @@ export default function Profile() {
                     <Box
                         sx={{
                             marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
                         }}
                         className={styles.formDiv}
                     >
                         <Typography component="h1" variant="h5">
                             {"Edit Profile Details"}
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Box
+                            component="form"
+                            noValidate
+                            onSubmit={handleSubmit}
+                            sx={{ mt: 3 }}
+                        >
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
-                                        onChange={(e) => { handleChange(e) }}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
                                         name="name"
                                         required
                                         fullWidth
@@ -145,19 +181,23 @@ export default function Profile() {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        onChange={(e) => { handleChange(e) }}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
                                         name="age"
                                         required
                                         fullWidth
                                         id="age"
                                         label="Age"
                                         value={payload.age}
-                                        type='number'
+                                        type="number"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        onChange={(e) => { handleChange(e) }}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
                                         required
                                         fullWidth
                                         InputProps={{
@@ -172,7 +212,9 @@ export default function Profile() {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        onChange={(e) => { handleChange(e) }}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
                                         fullWidth
                                         name="bio"
                                         label="Bio"
@@ -182,11 +224,16 @@ export default function Profile() {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <ProficienciesInputBox selected={selected} setSelected={setSelected} />
+                                    <ProficienciesInputBox
+                                        selected={selected}
+                                        setSelected={setSelected}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        onChange={(e) => { handleChange(e) }}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
                                         fullWidth
                                         multiline
                                         rows={4}
@@ -218,9 +265,9 @@ export default function Profile() {
                     <Box
                         sx={{
                             marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
                         }}
                         className={styles.formDiv}
                     >
@@ -228,14 +275,7 @@ export default function Profile() {
                             {"Update Profile Photo"}
                         </Typography>
 
-                        <Grid item xs={12}>
-                            <input
-                                name="avatar"
-                                type="file"
-                                ref={profilePicRef}
-                                style={{ display: "none" }}
-                            />
-                        </Grid>
+                        <img className={styles.profilePic} src={payload.avatar} alt="" />
 
                         <img className={styles.profilePic} src={payload.avatar} alt="" />
 
@@ -253,7 +293,12 @@ export default function Profile() {
                         <Typography component="h1" variant="h5">
                             {"Change Password"}
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Box
+                            component="form"
+                            noValidate
+                            onSubmit={handleSubmit}
+                            sx={{ mt: 3 }}
+                        >
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
@@ -272,7 +317,7 @@ export default function Profile() {
                                         fullWidth
                                         id="New Password"
                                         label="New Password"
-                                        type='password'
+                                        type="password"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -313,6 +358,5 @@ export default function Profile() {
                 </Alert>
             </Snackbar>
         </div>
-    );
-
+    )
 }
