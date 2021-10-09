@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
         let per_page = +req.query.limit || 9;
         let offset = (page - 1) * per_page;
 
-        console.log(req.query.data);
         let proficiencyQuery = [];
         proficiencyQuery.push(req.query.data.toLowerCase());
         let users;
@@ -45,7 +44,8 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(rea.params.id, rea.body, { new: true });
+        // throw new error("Hello woreld");
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         return res.status(200).json({ user })
     }

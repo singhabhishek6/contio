@@ -1,0 +1,38 @@
+.profileContainer {
+    background: rgb(189, 232, 222);
+    background: linear-gradient(90deg, #97F8E2 0%, #E6E6E6 100%);
+    display: flex;
+    min-height: 100vh;
+}
+
+.formDiv {
+    padding: 10px 50px;
+    border-radius: 20px;
+    width: 35vw;
+}
+
+.submitBtn {
+    background: #21d6c4
+ !important;
+    height: 50px;
+    margin-bottom: 50px !important;
+    margin-top: 24px !important;
+    color: #fff !important;
+}
+
+.profilePicBtn {
+    width: 50% !important;
+    background: #21d6c4
+ !important;
+    margin-bottom: 28px !important;
+    margin-top: 24px !important;
+    color: #fff !important;
+    padding: 6px 16px !important;
+}
+
+.profilePic {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    border-radius: 50%;
+}
