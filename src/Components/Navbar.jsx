@@ -29,6 +29,7 @@ export const Navbar = () => {
         <img src={logo} alt="logo" />
       </Link>
       <div className="navbtns">
+        {user && <p>Ask Doubts</p>}
         <p>Become a Mentor</p>
         <Link to="/chats">
           {" "}
