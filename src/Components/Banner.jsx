@@ -48,7 +48,10 @@ export const Banner = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
           />
-          <Link style={{ textDecoration: "none" }} to={subject.length ? `/search/${subject}`: "/"}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={subject.length ? `/search/${subject}` : "/"}
+          >
             <div style={{ cursor: subject.length ? "pointer" : "not-allowed" }}>
               Find Mentor
             </div>
@@ -91,11 +94,17 @@ const Div = styled.div`
   min-height: 100vh;
   background: rgb(189, 232, 222);
   background: linear-gradient(90deg, #97f8e2 0%, #e6e6e6 100%);
+  @media screen and (max-width: 1000px) {
+    flex-direction: column-reverse;
+  }
   .left {
     width: 55%;
     padding-left: 150px;
     padding-right: 20px;
     position: relative;
+    @media screen and (max-width: 1000px) {
+        padding-left:10px;
+      }
     h1 {
       margin: 4px 0;
       font-size: 40px;
@@ -113,9 +122,13 @@ const Div = styled.div`
       align-items: center;
       background-color: #fff;
       padding: 10px;
-      width: 400px;
+      width: 70%;
       border-radius: 30px;
       margin-top: 40px;
+      @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        width: 90%;
+      }
       svg {
         color: #21d6c4;
       }
@@ -142,6 +155,9 @@ const Div = styled.div`
           background-color: dodgerblue;
           transition: 300ms ease-in-out;
         }
+        @media screen and (max-width: 1000px) {
+        margin-top: 20px;
+      }
       }
     }
     .debounce {
