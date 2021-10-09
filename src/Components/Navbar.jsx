@@ -109,7 +109,7 @@ export const Navbar = () => {
               <div
                 className="google"
                 onClick={() =>
-                  auth.signInWithRedirect(
+                  auth.signInWithPopup(
                     new firebase.auth.GoogleAuthProvider()
                   )
                 }

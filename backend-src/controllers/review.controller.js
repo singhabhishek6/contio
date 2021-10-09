@@ -24,6 +24,8 @@ router.get('/:id', async (req, res) => {
 router.post('/:id', async (req, res) => {
     try {
         req.body.mentor_id = req.params.id;
+       
+        console.log(req.body);
         const review = await Review.create(req.body);
 
         return res.status(200).json({ review });
