@@ -250,4 +250,38 @@ export const MentorStyled = styled.div`
       margin-right: 8px;
     }
   }
+
+  .chat1 {
+          padding: 10px 15px;
+          border-radius: 5px;
+          
+          font-weight: 500;
+          color: white;
+          letter-spacing: 1px;
+          cursor: pointer;
+          background-color: rgb(82, 192, 245);
+        }
+
+        .reviewBox{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+.MuiBox-root{
+}
+          input{
+            width: 65%;
+            height: 60px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            padding-left: 10px;
+
+            &:focus{
+              outline: none;
+            }
+          }
+
+
+        }
 `;
