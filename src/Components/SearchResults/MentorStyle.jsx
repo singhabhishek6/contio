@@ -14,6 +14,7 @@ background: rgb(189, 232, 222);
       & .profileInfo{
           max-width: 80%;
           width: 100%;
+          z-index: 100;
           position: sticky;
           top: 0;
           height: 300px;
@@ -77,7 +78,8 @@ background: rgb(189, 232, 222);
             }
             .g{
                 margin-left: 10px;
-                color: gold;
+                color: black;
+                font-weight: 500;
             }
         }
         }
@@ -153,12 +155,16 @@ background: rgb(189, 232, 222);
    
       height: 150px !important;
       transition: 100ms ease-in-out;
+      background-color: white;
 
   }
   .shrink{
       width: 150px !important;
       height: 150px !important;
+ 
       transition: 100ms ease-in-out;
 
   }
+
+ 
 `
