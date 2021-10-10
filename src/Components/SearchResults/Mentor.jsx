@@ -54,13 +54,20 @@ export const Mentor = () => {
       document.querySelector(".bb")?.classList.toggle("shrink", window.scrollY);
     });
   }, [id]);
-
+  function lao(){
+    axios(`http://localhost:1234/reviews/${id}`).then((res) => {
+      console.log(res);
+      setComments(res.data.reviews);
+    });
+  }
   const handleSubmit =()=>{
+    console.log(x.user._id);
     axios.post(`http://localhost:1234/reviews/${id}`,{
       description:reviewText,
-      student_id:"616132d33b22b92c83ec93d8",
+      student_id:x.user._id,
       rating:value
   }).then((res) => {
+    lao()
      setReviewText("")
      setValue(0)
     });

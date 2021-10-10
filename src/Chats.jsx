@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { ChatEngine } from "react-chat-engine"
 import { auth } from "./Firebase"
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import { useAuth } from "./Contexts/AuthContext"
 import axios from "axios"
 
@@ -71,7 +72,7 @@ function Chats() {
       })
   }, [user, history])
 
-  if (!user || loading) return "Loading..."
+  if (!user || loading) return <img style={{position:"fixed",top:"50%",left:"40%"}} src="332.gif" alt="" />
 
   return (
     <div className="chats-page">
