@@ -9,7 +9,7 @@ router.get('/:id', async (req, res) => {
         let per_page = +req.params.limit || 10;
         let offset = (page - 1) * per_page;
 
-        const reviews = await Review.find({ mentor_id: req.params.id }).skip(offset).limit(per_page).lean().exec();
+        const reviews = await Review.find({ mentor_id: req.params.id }).skip(offset).limit(per_page).populate("student_id").lean().exec();
         let totalUsers = await Review.find({ mentor_id: req.params.id }).countDocuments();
 
         const totalPages = Math.ceil(totalUsers / per_page);

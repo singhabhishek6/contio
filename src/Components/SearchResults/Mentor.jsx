@@ -25,23 +25,21 @@ const labels = {
 };
 
 export const Mentor = () => {
-  const { id } = useParams();
+  const { id,data } = useParams();
   const [user, setuser] = useState([]);
   const [users, setusers] = useState([]);
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
-  const [comments, setComments] = useState(-1);
+  const [comments, setComments] = useState([]);
   const [reviewText, setReviewText] = useState("");
   const history = useHistory();
   const x = useAuth()
 
   useEffect(() => {
     axios(`http://localhost:1234/users/${id}`).then((res) => {
-      console.log(res);
       setuser(res.data.user);
     });
     axios("http://localhost:1234/users?data=css").then((res) => {
-      console.log(res);
       setusers(res.data.users);
     });
     axios(`http://localhost:1234/reviews/${id}`).then((res) => {
@@ -49,13 +47,12 @@ export const Mentor = () => {
       setComments(res.data.reviews);
     });
     window.addEventListener("scroll", () => {
-      console.log("sad");
       document
         .querySelector(".profileInfo")
         ?.classList.toggle("expand", window.scrollY);
       document.querySelector(".bb")?.classList.toggle("shrink", window.scrollY);
     });
-  }, []);
+  }, [id]);
 
   const handleSubmit =()=>{
     axios.post(`http://localhost:1234/reviews/${id}`,{
@@ -63,7 +60,6 @@ export const Mentor = () => {
       student_id:"616132d33b22b92c83ec93d8",
       rating:value
   }).then((res) => {
-      console.log(res);
      setReviewText("")
      setValue(0)
     });
@@ -206,7 +202,7 @@ export const Mentor = () => {
           </div>
 
           <h3 className="h">Similar Tech Mentors</h3>
-          <MyCarousel users={users} />
+          <MyCarousel users={users} id={data}/>
         </div>
       </MentorStyled>
       <Footer />
