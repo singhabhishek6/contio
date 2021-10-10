@@ -23,7 +23,7 @@ function Chatbot() {
     }
   }
   useEffect(() => {
-    setUsername(user.email)
+    setUsername(user.photoURL)
     const pusher = new Pusher("8c79b67adca098eeafac", {
       cluster: "ap2",
       encrypted: true,
@@ -38,19 +38,19 @@ function Chatbot() {
   }, [])
 
   return (
-    <div className="App">
-      <h1 className="App-title">Welcome to Doubt Room</h1>
+    <div className={styles.doubtroom}>
+      <h1 className={styles.title}>Welcome to Doubt Room</h1>
 
       <section>
-        <ChatList chats={chats} />
         <ChatBox
           text={text}
           username={username}
           handleTextChange={handleTextChange}
         />
+        <ChatList chats={chats} />
       </section>
     </div>
   )
 }
 
-export default Chatbot
+export default Chatbot;

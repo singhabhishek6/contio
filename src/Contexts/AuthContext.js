@@ -1,7 +1,7 @@
 import axios from "axios"
 import React, { useContext, useState, useEffect } from "react"
-import { useHistory } from "react-router"
 import { auth } from "../Firebase"
+import { useHistory } from "react-router-dom";
 
 const AuthContext = React.createContext()
 
@@ -11,13 +11,17 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
   const history = useHistory()
-
+  const [uid,setUid] = useState("")
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setUser(user)
       setLoading(false)
-      console.log(user)
-      // if (user) history.push("/")
+      // setUser(user)
+      console.log(user.uid)
+      setUid(user.uid)
+      if (user === null ) {
+        history.push("/")
+        return;
+      }
       axios
         .get(`http://localhost:1234/users/check?email=${user.email}`)
         .then(({ data }) => {
@@ -27,12 +31,16 @@ export const AuthProvider = ({ children }) => {
               email: user.email,
               avatar: user.photoURL || "",
             })
+            .then(({data}) => setUser(data.user)
+                     )         }
+          else {
+            setUser(user)
           }
         })
     })
-  }, [user])
+  }, [])
 
-  const value = { user }
+  const value = { user, setUser ,uid}
 
   return (
     <AuthContext.Provider value={value}>

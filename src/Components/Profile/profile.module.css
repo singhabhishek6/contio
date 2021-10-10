@@ -3,6 +3,7 @@
     background: linear-gradient(90deg, #97F8E2 0%, #E6E6E6 100%);
     display: flex;
     min-height: 100vh;
+    flex-direction: row-reverse;
 }
 
 .formDiv {
@@ -35,4 +36,6 @@
     height: 150px;
     margin-top: 10px;
     border-radius: 50%;
+    filter: drop-shadow(4px 4px 10px gray);
+    border: 2px groove #21d6c4;
 }
