@@ -12,6 +12,7 @@ export const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
 
+
   useEffect(() => {
     let x = [];
     axios(`http://localhost:1234/users?data=${data}&page=${page}`).then(
@@ -42,7 +43,7 @@ export const SearchResult = () => {
                     <div className="img-inner">
                       <div className="inner-skew">
                         <img
-                          src={`https://joeschmoe.io/api/v1/${el.name}`}
+                          src={el.avatar || `https://joeschmoe.io/api/v1/${el.name}`}
                           alt="User"
                         />
                       </div>

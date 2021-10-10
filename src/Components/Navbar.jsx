@@ -19,8 +19,6 @@ export const Navbar = () => {
   const { user } = useAuth();
   const history = useHistory();
 
-  console.log(user);
-
   const handleLogout = async () => {
     setShowlog(false);
     // setFake(false)
@@ -42,9 +40,10 @@ export const Navbar = () => {
             {/* </a> */}
           </Link>
         )}
-        <a rel="noreferrer" href="http://localhost:4000/" target="_blank">
-          <p>Become a Mentor</p>
-        </a>
+        {/* <a rel="noreferrer" href="http://localhost:4000/" target="_blank"> */}
+          
+          <Link to={`/profile/${user?._id}`}><p>Become a Mentor</p></Link>
+        {/* </a> */}
         <Link to="/chats">
           <p>Messages</p>
         </Link>
@@ -57,21 +56,22 @@ export const Navbar = () => {
               onBlur={() => setShowlog(false)}
               className="user"
             >
-              <p>{user ? user.displayName.slice(0, 8) : "Subham"}</p>
-              <img src={user.photoURL} alt="" />
+              <p>{user ? user.name.slice(0, 8) : "Subham"}</p>
+              <img src={user.avatar} alt="" />
             </div>
             <div
               style={{
-                width: showlog && "180px",
+                // width: showlog && "180px",
                 padding: showlog && "10px",
                 transition: "500ms",
                 zIndex: "1000",
+                transform: showlog && "translateX(0%)"
               }}
               className="logout"
             >
               <p onClick={() => setShowlog(false)}>My Dashboard</p>
               <p onClick={() => setShowlog(false)}>Class Requests</p>
-              <p onClick={() => setShowlog(false)}>My Profile</p>
+              <Link to={`/profile/${user._id}`}><p onClick={() => setShowlog(false)}>My Profile</p></Link>
               <p
                 onClick={() => {
                   handleLogout();
@@ -238,7 +238,9 @@ const Nav = styled.nav`
         right: 0;
         background-color: #fff;
         overflow: hidden;
-        width: 0px;
+        /* width: 0px; */
+        width: 180px;
+        transform: translateX(150%);
         padding: 0px;
         border-radius: 15px;
         box-shadow: 4px 4px 10px grey;

@@ -56,6 +56,18 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        console.log(req.body)
+        return res.status(200).json({ user })
+    }
+    catch (err) {
+        return res.status(400).json({ status: "failed", message: err.message });
+    }
+
+})
+
+router.put('/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         return res.status(200).json({ user })
     }
