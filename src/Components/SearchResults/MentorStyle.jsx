@@ -67,6 +67,7 @@ export const MentorStyled = styled.div`
           cursor: pointer;
           background-color: rgb(82, 192, 245);
           transition: 300ms;
+          text-decoration: none;
           &:hover{
             background-color: #21d6c4;
             transition: 300ms;

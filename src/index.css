@@ -99,3 +99,6 @@
   left: calc(50vw - 33px);
   top: calc(50vh - 22px);
 }
+a{
+  text-decoration: none
+}
