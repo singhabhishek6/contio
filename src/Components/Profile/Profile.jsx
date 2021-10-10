@@ -70,7 +70,7 @@ export default function Profile() {
       .catch((err) => {
         console.log(err)
       })
-  }, [id, payload])
+  }, [id])
 
   const handlePatchStudent = () => {
     axios
@@ -254,7 +254,7 @@ export default function Profile() {
               />
             </Grid>
 
-            <img className={styles.profilePic} src={`https://joeschmoe.io/api/v1/${payload.name}`} alt="" />
+            <img className={styles.profilePic} src={payload.avatar} alt="" />
 
             <Button
               type="submit"

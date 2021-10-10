@@ -29,11 +29,7 @@ export const Mentor = () => {
   const [users, setusers] = useState([]);
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
-<<<<<<< HEAD
   const [comments, setComments] = useState([]);
-=======
-  const [, setComments] = useState(-1);
->>>>>>> a773c87122cc80605e5bdbcf0407efd50437b12c
   const [reviewText, setReviewText] = useState("");
   const [alertmsg, setAlertmsg] = useState(false);
 
@@ -59,7 +55,6 @@ export const Mentor = () => {
     });
   }, [id]);
 
-<<<<<<< HEAD
   const handleSubmit =()=>{
     axios.post(`http://localhost:1234/reviews/${id}`,{
       description:reviewText,
@@ -70,21 +65,6 @@ export const Mentor = () => {
      setValue(0)
     });
   }
-=======
-  const handleSubmit = () => {
-    axios
-      .post(`http://localhost:1234/reviews/${id}`, {
-        description: reviewText,
-        student_id: "616132d33b22b92c83ec93d8",
-        rating: value,
-      })
-      .then((res) => {
-        console.log(res);
-        setReviewText("");
-        setValue(0);
-      });
-  };
->>>>>>> a773c87122cc80605e5bdbcf0407efd50437b12c
 
   console.log(x.user);
   return (
