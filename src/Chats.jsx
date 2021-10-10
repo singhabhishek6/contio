@@ -50,11 +50,11 @@ function Chats() {
         getFile(user.photoURL).then((avatar) => {
           formdata.append("avatar", avatar, avatar.name)
 
-          axios.post("http://localhost:1234/users", {
-            name: user.displayName,
-            email: user.email,
-            avatar: user.photoURL || "",
-          })
+          // axios.post("http://localhost:1234/users", {
+          //   name: user.displayName,
+          //   email: user.email,
+          //   avatar: user.photoURL || "",
+          // })
           axios
             .post("https://api.chatengine.io/users", formdata, {
               headers: {
@@ -69,9 +69,9 @@ function Chats() {
             })
         })
       })
-  }, [user, history])
+  }, [user])
 
-  if (!user || loading) return "Loading..."
+  // if (!user || loading) return "Loading..."
 
   return (
     <div className="chats-page">
