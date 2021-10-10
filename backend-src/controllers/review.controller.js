@@ -32,6 +32,7 @@ router.post('/:id', async (req, res) => {
         console.log(user,rating_count);
         let newRating = ((user.teacher_review * rating_count) + req.body.rating) / (rating_count + 1)
 
+
         user = await User.findByIdAndUpdate(req.params.id, {teacher_review: newRating.toFixed(1), review_count: rating_count + 1}, {new: true});
 
         const review = await Review.create(req.body);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../img/logo.png";
 import TextField from "@mui/material/TextField";
@@ -14,17 +14,18 @@ import { useAuth } from "../Contexts/AuthContext";
 export const Navbar = () => {
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
-  const [fake, setFake] = useState(false);
+  const [, setFake] = useState(false);
   const [showlog, setShowlog] = useState(false);
-  const { user } = useAuth();
-  const history = useHistory();
+  const { user, setUser } = useAuth();
+  // const history = useHistory();
 
   const handleLogout = async () => {
     setShowlog(false);
+    setUser(null)
     // setFake(false)
     await auth.signOut();
 
-    history.push("/");
+    // history.push("/");
   };
 
   return (
@@ -44,8 +45,8 @@ export const Navbar = () => {
           
           <Link to={`/profile/${user?._id}`}><p>Become a Mentor</p></Link>
         {/* </a> */}
-        <Link to="/chats">
-          <p>Messages</p>
+        <Link to={user ? "/chats" : "/"}>
+          <p onClick={() => !user && setLogin(true)}>Messages</p>
         </Link>
         {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
         {!user && <p onClick={() => setLogin(true)}>Log In</p>}

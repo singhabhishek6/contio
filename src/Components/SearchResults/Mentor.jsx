@@ -125,7 +125,7 @@ export const Mentor = () => {
                 >
                   Start Chat
                 </div>
-                <div onClick={() => {
+                {user.isOnline ? <a rel="noreferrer" href="http://localhost:4000/?room=Contio_4031113743" target="_blank"><div className="chat">Video Call</div></a> :<div onClick={() => {
                   // alert("Mentor is not available for Video Call")
                   setAlertmsg(true)
                   setTimeout(() => {
@@ -133,7 +133,7 @@ export const Mentor = () => {
                   },800)
                 }}className="chat">
                   Video Call
-                </div>
+                </div>}
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export const Mentor = () => {
           <div className="review">
             <div className="recDet">
               <span className="df">
-                <span className="r">37 reviews on sanjay</span>
+                <span className="r">{comments.length} reviews on sanjay</span>
 
                 <Rating
                   name="read-only"
