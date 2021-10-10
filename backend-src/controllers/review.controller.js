@@ -29,7 +29,6 @@ router.post('/:id', async (req, res) => {
         let user = await User.findById(req.params.id).lean().exec();
         let rating_count = user.review_count || 1;
         
-        console.log(user,rating_count);
         let newRating = ((user.teacher_review * rating_count) + req.body.rating) / (rating_count + 1)
 
 

@@ -11,6 +11,7 @@ function Chatbot() {
   const [text, setText] = useState("")
   const [username, setUsername] = useState("")
   let [chats, setChats] = useState([])
+  console.log(user)
   const handleTextChange = (e) => {
     if (e.keyCode === 13) {
       const payload = {
@@ -23,7 +24,7 @@ function Chatbot() {
     }
   }
   useEffect(() => {
-    setUsername(user.photoURL)
+    setUsername(user.avatar)
     const pusher = new Pusher("8c79b67adca098eeafac", {
       cluster: "ap2",
       encrypted: true,

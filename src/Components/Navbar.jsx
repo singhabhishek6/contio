@@ -62,11 +62,11 @@ export const Navbar = () => {
             </div>
             <div
               style={{
-                // width: showlog && "180px",
+                width: showlog && "180px",
                 padding: showlog && "10px",
                 transition: "500ms",
                 zIndex: "1000",
-                transform: showlog && "translateX(0%)"
+                // transform: showlog && "translateX(0%)"
               }}
               className="logout"
             >
@@ -239,9 +239,9 @@ const Nav = styled.nav`
         right: 0;
         background-color: #fff;
         overflow: hidden;
-        /* width: 0px; */
-        width: 180px;
-        transform: translateX(150%);
+        width: 0px;
+        /* width: 180px;
+        transform: translateX(150%); */
         padding: 0px;
         border-radius: 15px;
         box-shadow: 4px 4px 10px grey;
