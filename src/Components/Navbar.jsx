@@ -240,7 +240,8 @@ const Nav = styled.nav`
         background-color: #fff;
         overflow: hidden;
         width: 0px;
-        
+        /* width: 180px;
+        transform: translateX(150%); */
         padding: 0px;
         border-radius: 15px;
         box-shadow: 4px 4px 10px grey;
