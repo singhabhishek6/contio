@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }) => {
     auth.onAuthStateChanged((user) => {
       setLoading(false)
       // setUser(user)
-      console.log(user.uid)
-      setUid(user.uid)
+      console.log(user?.uid)
+      setUid(user?.uid)
       if (user === null ) {
         history.push("/")
         return;
