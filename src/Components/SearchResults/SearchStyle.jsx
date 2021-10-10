@@ -19,6 +19,7 @@ export const SearchStyle = styled.div`
     margin-left: 65px;
     display: inline-block;
     width: 270px;
+    margin-bottom: 30px;
     height: 420px;
     text-align: center;
 

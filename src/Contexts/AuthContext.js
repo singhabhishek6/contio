@@ -11,11 +11,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
   const history = useHistory()
-
+  const [uid,setUid] = useState("")
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setLoading(false)
-      console.log(user)
+      // setUser(user)
+      console.log(user.uid)
+      setUid(user.uid)
       if (user === null ) {
         history.push("/")
         return;
@@ -28,16 +30,17 @@ export const AuthProvider = ({ children }) => {
               name: user.displayName,
               email: user.email,
               avatar: user.photoURL || "",
-            }).then(({data}) => setUser(data.user))
-          }
+            })
+            .then(({data}) => setUser(data.user)
+                     )         }
           else {
-            setUser(data.user)
+            setUser(user)
           }
         })
     })
   }, [])
 
-  const value = { user, setUser }
+  const value = { user, setUser ,uid}
 
   return (
     <AuthContext.Provider value={value}>
