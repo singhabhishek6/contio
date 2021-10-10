@@ -37,6 +37,7 @@ export const Mentor = () => {
   const x = useAuth();
 
   useEffect(() => {
+    // window.scrollTo(0,0)
     axios(`http://localhost:1234/users/${id}`).then((res) => {
       setuser(res.data.user);
     });
@@ -53,11 +54,11 @@ export const Mentor = () => {
         ?.classList.toggle("expand", window.scrollY);
       document.querySelector(".bb")?.classList.toggle("shrink", window.scrollY);
     });
-  }, [id]);
+  }, [id,comments]);
   function lao(){
     axios(`http://localhost:1234/reviews/${id}`).then((res) => {
       console.log(res);
-      setComments(res.data.reviews);
+      setComments(res.data.reviews.reverse());
     });
   }
   const handleSubmit =()=>{
@@ -91,6 +92,7 @@ export const Mentor = () => {
                 <h2>{user.name}</h2>
                 <Rating
                   name="read-only"
+                  precision={0.5}
                   value={
                     user.teacher_review !== undefined ? user.teacher_review : 1
                   }
@@ -156,10 +158,11 @@ export const Mentor = () => {
           <div className="review">
             <div className="recDet">
               <span className="df">
-                <span className="r">37 reviews on sanjay</span>
+                <span className="r">{comments.length} reviews on sanjay</span>
 
                 <Rating
                   name="read-only"
+                  precision={0.5}
                   value={
                     user.teacher_review !== undefined ? user.teacher_review : 1
                   }
@@ -176,6 +179,7 @@ export const Mentor = () => {
             <div className="reviewBox">
               <input
                 type="text"
+                value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
                 placeholder="Write your review.."
               />
@@ -212,15 +216,14 @@ export const Mentor = () => {
               </div>
             </div>
             <ul>
-              {users.map((el) => {
+              {comments.map((el) => {
                 return (
                   <li>
                     {/* <span className="avtar">{el.name[0]}</span> */}
-                    <img className="avtar" src={`https://joeschmoe.io/api/v1/${el.name}`} alt="" />
-                    <span className="n">{el.name}</span>
+                    <img className="avtar" src={el.student_id.avatar ||`https://joeschmoe.io/api/v1/${el.student_id.name}`} alt="" />
+                    <span className="n">{el.student_id.name}</span>
                     <span>
-                      Perfect! He is very good in teaching the concepts from
-                      basics and my daughter finds his class interesting.
+                     {el.description}
                     </span>
                   </li>
                 );
