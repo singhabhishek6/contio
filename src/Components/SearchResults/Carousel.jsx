@@ -15,15 +15,15 @@ export const MyCarousel = ({users,id}) => {
       >
         {users.map(el=>{
           return (
-            <div className="cardStyle" onClick={()=>{
-                history.push(`/search/${id}/${el._id}`)
-            }}>
+            <div className="cardStyle" >
           <img
             src={`https://joeschmoe.io/api/v1/${el.name}`}
             alt=""
           />
-          <div className="asd">
-            <h3> {el.name}</h3>
+          <div  className="asd">
+            <h3 onClick={()=>{
+                history.push(`/search/${id}/${el._id}`)
+            }}> {el.name}</h3>
             <Rating name="read-only" value={el.teacher_review} readOnly />
             <div className="sdf"> 
            {

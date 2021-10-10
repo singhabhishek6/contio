@@ -25,13 +25,14 @@ router.get('/:id', async (req, res) => {
 router.post('/:id', async (req, res) => {
     try {
         req.body.mentor_id = req.params.id;
-
+        
         let user = await User.findById(req.params.id).lean().exec();
         let rating_count = user.review_count || 1;
+        
+        console.log(user,rating_count);
+        let newRating = ((user.teacher_review * rating_count) + req.body.rating) / (rating_count + 1)
 
-        let newRating = ((user.teacher_review * rating_count) + req.body.rating) / (rating_count + 1);
-
-        user = await User.findByIdAndUpdate(req.params.id, {teacher_review: newRating, review_count: rating_count + 1}, {new: true});
+        user = await User.findByIdAndUpdate(req.params.id, {teacher_review: newRating.toFixed(1), review_count: rating_count + 1}, {new: true});
 
         const review = await Review.create(req.body);
 
