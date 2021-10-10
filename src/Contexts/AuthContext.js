@@ -23,10 +23,10 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       axios
-        .get(`http://localhost:1234/users/check?email=${user.email}`)
+        .get(`https://contioback.herokuapp.com/users/check?email=${user.email}`)
         .then(({ data }) => {
           if (data.user.length === 0) {
-            axios.post("http://localhost:1234/users", {
+            axios.post("https://contioback.herokuapp.com/users", {
               name: user.displayName,
               email: user.email,
               avatar: user.photoURL || "",

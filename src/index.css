@@ -83,7 +83,9 @@
   background-color: #4285f4;
   color: white;
 }
-
+a{
+  text-decoration: none;
+}
 #loading-container {
   position: absolute;
   top: 0px;

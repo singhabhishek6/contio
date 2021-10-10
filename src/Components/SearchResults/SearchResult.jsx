@@ -15,7 +15,7 @@ export const SearchResult = () => {
 
   useEffect(() => {
     let x = [];
-    axios(`http://localhost:1234/users?data=${data}&page=${page}`).then(
+    axios(`https://contioback.herokuapp.com/users?data=${data}&page=${page}`).then(
       (res) => {
         console.log(res);
 

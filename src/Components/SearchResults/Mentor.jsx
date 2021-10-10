@@ -38,13 +38,13 @@ export const Mentor = () => {
 
   useEffect(() => {
     // window.scrollTo(0,0)
-    axios(`http://localhost:1234/users/${id}`).then((res) => {
+    axios(`https://contioback.herokuapp.com/users/${id}`).then((res) => {
       setuser(res.data.user);
     });
-    axios("http://localhost:1234/users?data=css").then((res) => {
+    axios("https://contioback.herokuapp.com/users?data=css").then((res) => {
       setusers(res.data.users);
     });
-    axios(`http://localhost:1234/reviews/${id}`).then((res) => {
+    axios(`https://contioback.herokuapp.com/reviews/${id}`).then((res) => {
       console.log(res);
       setComments(res.data.reviews);
     });
@@ -56,14 +56,14 @@ export const Mentor = () => {
     });
   }, [id,comments]);
   function lao(){
-    axios(`http://localhost:1234/reviews/${id}`).then((res) => {
+    axios(`https://contioback.herokuapp.com/reviews/${id}`).then((res) => {
       console.log(res);
       setComments(res.data.reviews.reverse());
     });
   }
   const handleSubmit =()=>{
     console.log(x.user._id);
-    axios.post(`http://localhost:1234/reviews/${id}`,{
+    axios.post(`https://contioback.herokuapp.com/reviews/${id}`,{
       description:reviewText,
       student_id:x.user._id,
       rating:value

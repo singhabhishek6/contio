@@ -50,7 +50,7 @@ function Chats() {
         getFile(user.photoURL).then((avatar) => {
           formdata.append("avatar", avatar, avatar.name)
 
-          axios.post("http://localhost:1234/users", {
+          axios.post("https://contioback.herokuapp.com/users", {
             name: user.displayName,
             email: user.email,
             avatar: user.photoURL || "",

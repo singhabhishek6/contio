@@ -17,7 +17,7 @@ function Chatbot() {
         username: username,
         message: text,
       }
-      axios.post("http://localhost:1234/message", payload)
+      axios.post("https://contioback.herokuapp.com/message", payload)
     } else {
       setText(e.target.value)
     }

@@ -77,7 +77,7 @@ export default function Profile() {
 
   const handlePatchStudent = () => {
     axios
-      .patch(`http://localhost:1234/users/${id}`, payload)
+      .patch(`https://contioback.herokuapp.com/users/${id}`, payload)
       .then((res) => {
         handleAlert("Updated")
         history.push(`/profile/${id}`)
