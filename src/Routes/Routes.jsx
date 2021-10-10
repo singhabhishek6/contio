@@ -27,6 +27,7 @@ export const Routes = () => {
         <Chats />
       </Route>
       <Route exact path="/doubts">
+        <Navbar />
         <Chatbot />
       </Route>
       

@@ -1,28 +1,34 @@
-import React, { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
-import styled from "styled-components"
-import logo from "../img/logo.png"
-import TextField from "@mui/material/TextField"
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded"
-import GoogleIcon from "@mui/icons-material/Google"
-import CloseIcon from "@mui/icons-material/Close"
-import MailIcon from "@mui/icons-material/Mail"
-import "firebase/app"
-import { auth } from "../Firebase"
-import firebase from "firebase/compat"
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import logo from "../img/logo.png";
+import TextField from "@mui/material/TextField";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import GoogleIcon from "@mui/icons-material/Google";
+import CloseIcon from "@mui/icons-material/Close";
+import MailIcon from "@mui/icons-material/Mail";
+import "firebase/app";
+import { auth } from "../Firebase";
+import firebase from "firebase/compat";
+import { useAuth } from "../Contexts/AuthContext";
 export const Navbar = () => {
-  const [login, setLogin] = useState(false)
-  const [signup, setSignup] = useState(false)
-  const [user, setUser] = useState(false)
-  const [showlog, setShowlog] = useState(false)
-  const history = useHistory()
-  const handleLogout = async () => {
-    setShowlog(false)
-    setUser(false)
-    await auth.signOut()
+  const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
+  const [fake, setFake] = useState(false);
+  const [showlog, setShowlog] = useState(false);
+  const { user } = useAuth();
+  const history = useHistory();
 
-    history.push("/")
-  }
+  console.log(user);
+
+  const handleLogout = async () => {
+    setShowlog(false);
+    // setFake(false)
+    await auth.signOut();
+
+    history.push("/");
+  };
+
   return (
     <Nav>
       <Link to="/">
@@ -30,13 +36,16 @@ export const Navbar = () => {
       </Link>
       <div className="navbtns">
         {user && (
-          // <Link to="/doubts">
-            <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"><p>Ask Doubts</p></a>
-          // </Link>
+          <Link to="/doubts">
+            {/* <a rel="noreferrer" href="http://localhost:4000/?room=React_3874861179" target="_blank"> */}
+            <p>Ask Doubts</p>
+            {/* </a> */}
+          </Link>
         )}
-        <a rel="noreferrer" href="http://localhost:4000/" target="_blank"><p>Become a Mentor</p></a>
+        <a rel="noreferrer" href="http://localhost:4000/" target="_blank">
+          <p>Become a Mentor</p>
+        </a>
         <Link to="/chats">
-          {" "}
           <p>Messages</p>
         </Link>
         {!user && <p onClick={() => setSignup(true)}>Sign Up</p>}
@@ -48,14 +57,15 @@ export const Navbar = () => {
               onBlur={() => setShowlog(false)}
               className="user"
             >
-              <p>Subham</p>
-              <img src="https://joeschmoe.io/api/v1/abhi" alt="" />
+              <p>{user ? user.displayName.slice(0, 8) : "Subham"}</p>
+              <img src={user.photoURL} alt="" />
             </div>
             <div
               style={{
                 width: showlog && "180px",
                 padding: showlog && "10px",
                 transition: "500ms",
+                zIndex: "1000",
               }}
               className="logout"
             >
@@ -64,7 +74,7 @@ export const Navbar = () => {
               <p onClick={() => setShowlog(false)}>My Profile</p>
               <p
                 onClick={() => {
-                  handleLogout()
+                  handleLogout();
                 }}
               >
                 Logout
@@ -94,8 +104,8 @@ export const Navbar = () => {
             />
             <div
               onClick={() => {
-                setUser(true)
-                setLogin(false)
+                setFake(true);
+                setLogin(false);
               }}
               className="loginbtn"
             >
@@ -108,11 +118,10 @@ export const Navbar = () => {
               </div>
               <div
                 className="google"
-                onClick={() =>
-                  auth.signInWithPopup(
-                    new firebase.auth.GoogleAuthProvider()
-                  )
-                }
+                onClick={() => {
+                  setLogin(false);
+                  auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+                }}
               >
                 <GoogleIcon /> <div>Google</div>
               </div>
@@ -121,8 +130,8 @@ export const Navbar = () => {
             <h4
               className="signup"
               onClick={() => {
-                setLogin(false)
-                setSignup(true)
+                setLogin(false);
+                setSignup(true);
               }}
             >
               Sign Up
@@ -157,8 +166,8 @@ export const Navbar = () => {
               You already have an account?{" "}
               <span
                 onClick={() => {
-                  setSignup(false)
-                  setLogin(true)
+                  setSignup(false);
+                  setLogin(true);
                 }}
               >
                 Log in
@@ -172,8 +181,8 @@ export const Navbar = () => {
         </div>
       )}
     </Nav>
-  )
-}
+  );
+};
 
 const Nav = styled.nav`
   display: flex;
@@ -190,6 +199,10 @@ const Nav = styled.nav`
   .navbtns {
     display: flex;
     align-items: center;
+    a{
+      text-decoration: none;
+      color: #111;
+    }
     p {
       margin: 0 15px;
       font-weight: 600;
@@ -404,4 +417,4 @@ const Nav = styled.nav`
       }
     }
   }
-`
+`;

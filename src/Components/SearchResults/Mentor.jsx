@@ -1,8 +1,7 @@
 import { Rating } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { MentorStyled } from "./MentorStyle";
-import ReactCardCarousel from "react-card-carousel";
 import { MyCarousel } from "./Carousel";
 import axios from "axios";
 import { Navbar } from "../Navbar";
@@ -30,10 +29,16 @@ export const Mentor = () => {
   const [users, setusers] = useState([]);
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
+<<<<<<< HEAD
   const [comments, setComments] = useState([]);
+=======
+  const [, setComments] = useState(-1);
+>>>>>>> a773c87122cc80605e5bdbcf0407efd50437b12c
   const [reviewText, setReviewText] = useState("");
+  const [alertmsg, setAlertmsg] = useState(false);
+
   const history = useHistory();
-  const x = useAuth()
+  const x = useAuth();
 
   useEffect(() => {
     axios(`http://localhost:1234/users/${id}`).then((res) => {
@@ -54,6 +59,7 @@ export const Mentor = () => {
     });
   }, [id]);
 
+<<<<<<< HEAD
   const handleSubmit =()=>{
     axios.post(`http://localhost:1234/reviews/${id}`,{
       description:reviewText,
@@ -64,12 +70,28 @@ export const Mentor = () => {
      setValue(0)
     });
   }
+=======
+  const handleSubmit = () => {
+    axios
+      .post(`http://localhost:1234/reviews/${id}`, {
+        description: reviewText,
+        student_id: "616132d33b22b92c83ec93d8",
+        rating: value,
+      })
+      .then((res) => {
+        console.log(res);
+        setReviewText("");
+        setValue(0);
+      });
+  };
+>>>>>>> a773c87122cc80605e5bdbcf0407efd50437b12c
 
   console.log(x.user);
   return (
     <>
       <Navbar />
       <MentorStyled>
+        {alertmsg && <div className="alert">Mentor is not available for video call</div>}
         <div className="wrapper">
           <div className="profileInfo">
             <img
@@ -83,7 +105,7 @@ export const Mentor = () => {
                 <Rating
                   name="read-only"
                   value={
-                    user.teacher_review != undefined ? user.teacher_review : 1
+                    user.teacher_review !== undefined ? user.teacher_review : 1
                   }
                   readOnly
                 />
@@ -105,13 +127,24 @@ export const Mentor = () => {
                   </div>
                 )}
               </div>
-              <div
-                onClick={() => {
-                  history.push("/chats");
-                }}
-                className="chat"
-              >
-                Chat
+              <div className="chatvideo">
+                <div
+                  onClick={() => {
+                    history.push("/chats");
+                  }}
+                  className="chat"
+                >
+                  Start Chat
+                </div>
+                <div onClick={() => {
+                  // alert("Mentor is not available for Video Call")
+                  setAlertmsg(true)
+                  setTimeout(() => {
+                    setAlertmsg(false)
+                  },800)
+                }}className="chat">
+                  Video Call
+                </div>
               </div>
             </div>
           </div>
@@ -119,7 +152,7 @@ export const Mentor = () => {
             <div className="left">
               <h3>Proficiency in</h3>
               <div>
-                {user.proficiency != undefined
+                {user.proficiency !== undefined
                   ? user.proficiency.map((r) => {
                       return <span>{r}</span>;
                     })
@@ -141,7 +174,7 @@ export const Mentor = () => {
                 <Rating
                   name="read-only"
                   value={
-                    user.teacher_review != undefined ? user.teacher_review : 1
+                    user.teacher_review !== undefined ? user.teacher_review : 1
                   }
                   readOnly
                 />
@@ -154,7 +187,11 @@ export const Mentor = () => {
             </div>
 
             <div className="reviewBox">
-              <input type="text" onChange={(e)=>setReviewText(e.target.value)} placeholder="Write your review.." />
+              <input
+                type="text"
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Write your review.."
+              />
               <Box
                 sx={{
                   width: 200,
@@ -183,13 +220,16 @@ export const Mentor = () => {
                 )}
               </Box>
 
-              <div className="chat1" onClick={handleSubmit}>Submit</div>
+              <div className="chat1" onClick={handleSubmit}>
+                Submit
+              </div>
             </div>
             <ul>
               {users.map((el) => {
                 return (
                   <li>
-                    <span className="avtar">{el.name[0]}</span>
+                    {/* <span className="avtar">{el.name[0]}</span> */}
+                    <img className="avtar" src={`https://joeschmoe.io/api/v1/${el.name}`} alt="" />
                     <span className="n">{el.name}</span>
                     <span>
                       Perfect! He is very good in teaching the concepts from
