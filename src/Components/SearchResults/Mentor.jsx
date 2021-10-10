@@ -82,7 +82,7 @@ export const Mentor = () => {
           <div className="profileInfo">
             <img
               className="bb"
-              src={`https://joeschmoe.io/api/v1/${user.name}`}
+              src={user.avatar || `https://joeschmoe.io/api/v1/${user.name}`}
               alt=""
             />
             <div className="info">

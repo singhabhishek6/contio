@@ -27,6 +27,7 @@ export default function Profile() {
     bio: "",
     about: "",
     avatar: "",
+    proficiency: []
   })
 
   const [selected, setSelected] = React.useState([])
@@ -50,6 +51,7 @@ export default function Profile() {
         bio: "",
         about: "",
         avatar: "",
+        proficiency: []
       })
       return
     }
@@ -65,12 +67,13 @@ export default function Profile() {
           bio: res.data.user.bio,
           about: res.data.user.about,
           avatar: res.data.user.avatar,
+          proficiency: res.data.user.proficiency
         })
       })
       .catch((err) => {
         console.log(err)
       })
-  }, [id, payload])
+  }, [])
 
   const handlePatchStudent = () => {
     axios
@@ -107,6 +110,10 @@ export default function Profile() {
       setAlertType("success")
     }, 2000)
   }
+
+  useEffect(() => {
+    setPayload({...payload, ["proficiency"]:selected})
+  },[selected])
 
   return (
     <div className={styles.profileContainer}>
@@ -254,7 +261,7 @@ export default function Profile() {
               />
             </Grid>
 
-            <img className={styles.profilePic} src={`https://joeschmoe.io/api/v1/${payload.name}`} alt="" />
+            <img className={styles.profilePic} src={ payload.avatar || `https://joeschmoe.io/api/v1/${payload.name}`} alt="" />
 
             <Button
               type="submit"
