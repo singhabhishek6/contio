@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import ReactCardCarousel from "react-card-carousel";
 import { Rating } from "@mui/material";
+import { useHistory } from "react-router";
 
-export const MyCarousel = ({users}) => {
+export const MyCarousel = ({users,id}) => {
+  const history = useHistory()
   return (
     <div className="CONTAINER_STYLE">
       <ReactCardCarousel
@@ -13,7 +15,9 @@ export const MyCarousel = ({users}) => {
       >
         {users.map(el=>{
           return (
-            <div className="cardStyle">
+            <div className="cardStyle" onClick={()=>{
+                history.push(`/search/${id}/${el._id}`)
+            }}>
           <img
             src={`https://joeschmoe.io/api/v1/${el.name}`}
             alt=""

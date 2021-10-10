@@ -24,12 +24,12 @@ const labels = {
 };
 
 export const Mentor = () => {
-  const { id } = useParams();
+  const { id,data } = useParams();
   const [user, setuser] = useState([]);
   const [users, setusers] = useState([]);
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
-  const [, setComments] = useState(-1);
+  const [comments, setComments] = useState([]);
   const [reviewText, setReviewText] = useState("");
   const [alertmsg, setAlertmsg] = useState(false);
 
@@ -38,11 +38,9 @@ export const Mentor = () => {
 
   useEffect(() => {
     axios(`http://localhost:1234/users/${id}`).then((res) => {
-      console.log(res);
       setuser(res.data.user);
     });
     axios("http://localhost:1234/users?data=css").then((res) => {
-      console.log(res);
       setusers(res.data.users);
     });
     axios(`http://localhost:1234/reviews/${id}`).then((res) => {
@@ -50,7 +48,6 @@ export const Mentor = () => {
       setComments(res.data.reviews);
     });
     window.addEventListener("scroll", () => {
-      console.log("sad");
       document
         .querySelector(".profileInfo")
         ?.classList.toggle("expand", window.scrollY);
@@ -58,19 +55,16 @@ export const Mentor = () => {
     });
   }, [id]);
 
-  const handleSubmit = () => {
-    axios
-      .post(`http://localhost:1234/reviews/${id}`, {
-        description: reviewText,
-        student_id: "616132d33b22b92c83ec93d8",
-        rating: value,
-      })
-      .then((res) => {
-        console.log(res);
-        setReviewText("");
-        setValue(0);
-      });
-  };
+  const handleSubmit =()=>{
+    axios.post(`http://localhost:1234/reviews/${id}`,{
+      description:reviewText,
+      student_id:"616132d33b22b92c83ec93d8",
+      rating:value
+  }).then((res) => {
+     setReviewText("")
+     setValue(0)
+    });
+  }
 
   console.log(x.user);
   return (
@@ -228,7 +222,7 @@ export const Mentor = () => {
           </div>
 
           <h3 className="h">Similar Tech Mentors</h3>
-          <MyCarousel users={users} />
+          <MyCarousel users={users} id={data}/>
         </div>
       </MentorStyled>
       <Footer />
